@@ -29,7 +29,7 @@ export function useAsync(asyncFn, deps = []) {
         setState({ data: null, loading: false, error: err });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   useEffect(() => {

@@ -37,7 +37,7 @@ export const searchService = {
 
   /** Wrapper search */
   async getAll(signal) {
-    return searchService.search("Hola mundo", signal);
+    return searchService.search("sapo ", signal);
   },
 
   /** Detalle por id/url  */
@@ -45,4 +45,27 @@ export const searchService = {
     const raw = await clients.elcris.get(`/search/${id}`, { signal });
     return normalize(raw, 0);
   },
+
+  async remove(id, signal) {
+    // Dependiendo de cómo reciba el ID tu API, se manda en la ruta
+    const res = await clients.elcris.delete(`/search/${id}`, { signal });
+    return res;
+  },
+
+  /** Crear un nuevo registro */
+  async create(nuevoDato, signal) {
+    const res = await clients.elcris.post(
+      "/search",
+      nuevoDato,
+      {
+        headers: { "X-API-Key": "diplomado-unam-26" },
+        signal,
+      }
+    );
+    return res;
+  },
+
+
 };
+
+

@@ -1,88 +1,4 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { GetAllProducts } from "./ProductList";
-import { ProductForm } from "./ProductForm";
-
-export function Catalogo({ products }) {
-    const [productos, setProductos] = useState(products || []);
-    const [isLoading, setLoading] = useState(true);
-    const [canHandleForm, setCanHandleForm] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 2500);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    // Función para eliminar un producto con ventana de confirmación
-    const handleDeleteProduct = (id) => {
-        // Ventana nativa del navegador
-        const confirmado = window.confirm("¿Estás seguro de que quieres eliminar este producto?");
-
-        // Si el usuario le da a "Aceptar", 'confirmado' será true y se borra
-        if (confirmado) {
-            setProductos((prev) => prev.filter((p) => p.id !== id));
-        }
-    };
-
-    const handleEditProduct = (producto) => {
-        setSelectedProduct(producto);
-        setCanHandleForm(true);
-    };
-
-    // Función para guardar (crear o actualizar en la lista)
-    const handleSaveProduct = (productData) => {
-        if (selectedProduct) {
-            // Actualizar existente
-            setProductos(productos.map(p => p.id === productData.id ? productData : p));
-        } else {
-            // Crear nuevo
-            setProductos([...productos, productData]);
-        }
-        setCanHandleForm(false); // Cierra el formulario al guardar
-        setSelectedProduct(null);
-    };
-
-    return (
-        <div>
-            {isLoading ? (
-                <h4>Cargando...</h4>
-            ) : (
-                <GetAllProducts
-                    products={productos}
-                    onEditClick={handleEditProduct}
-                    onDeleteClick={handleDeleteProduct}
-                />
-            )}
-
-            <div className="mag-btns" style={{ marginTop: "15px" }}>
-                <button
-                    onClick={() => {
-                        setSelectedProduct(null);
-                        setCanHandleForm(true);
-                    }}
-                    className="mag-btn mag-btn-primary"
-                >
-                    Agregar Producto
-                </button>
-            </div>
-
-
-            {canHandleForm && (
-                <div style={{ marginTop: "20px" }}>
-                    <ProductForm
-                        selectedProduct={selectedProduct}
-                        onSaveProduct={handleSaveProduct}
-                    />
-                </div>
-            )}
-        </div>
-    );
-}
-=======
 import "./form.css";
 import { ProductForm } from "./ProductForm";
 import { GetAllProducts } from "./ProductList";
@@ -107,9 +23,9 @@ export function Catalogo({ products }) {
     // update: reemplazar el producto seleccionado con el id
     if (productSeleccionado) {
       //reemplacemos el product que coincida con el id
-      setProductos(prev=> prev.map(p=> p.id == productSeleccionado.id? nuevoOActualizado: p))      
+      setProductos(prev => prev.map(p => p.id == productSeleccionado.id ? nuevoOActualizado : p))
     }
-    else{
+    else {
       // agrega un nuevo elemento
       setProductos((prev) => [
         ...prev,
@@ -125,10 +41,10 @@ export function Catalogo({ products }) {
   const handlerRemoveProduct = (id) => {
     // Elimine, filtre o saque de productos el id seleccionado
     // podriamos eliminar con filter, o con slice
-    setProductos(prev => prev.filter(p=> p.id != id))
+    setProductos(prev => prev.filter(p => p.id != id))
   }
 
-  const handlerIniciarEdicion = (producto) => {    
+  const handlerIniciarEdicion = (producto) => {
     setproductSeleccionado(producto);
     setShowForm(true);
   }
@@ -138,11 +54,11 @@ export function Catalogo({ products }) {
       <div>
         {isLoading ? (
           <h4>Cargando...</h4>
-        ) : (          
+        ) : (
           <GetAllProducts
             products={productos}
-            onEdit = {handlerIniciarEdicion}
-            onRemove = {handlerRemoveProduct}
+            onEdit={handlerIniciarEdicion}
+            onRemove={handlerRemoveProduct}
           />
         )}
 
@@ -161,10 +77,10 @@ export function Catalogo({ products }) {
 
         {showForm ? (
           <ProductForm
-            key = {productSeleccionado ? productSeleccionado.id: ''}
+            key={productSeleccionado ? productSeleccionado.id : ''}
             productAEditar={productSeleccionado}
             onSave={handlerSaveProduct}
-            onCancel={()=>{
+            onCancel={() => {
               setShowForm(false)
               setproductSeleccionado(null)
             }}
@@ -176,4 +92,3 @@ export function Catalogo({ products }) {
     </>
   );
 }
->>>>>>> main

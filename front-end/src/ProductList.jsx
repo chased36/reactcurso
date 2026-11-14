@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { ProductItem } from "./ProductItem";
 
-<<<<<<< HEAD
-export function GetAllProducts({ products, onEditClick, onDeleteClick }) {
-=======
 export function GetAllProducts({ products, onEdit, onRemove }) {
-const [isAsending, setIsAsending] = useState({ order: true, key: "" });
+  const [isAsending, setIsAsending] = useState({ order: true, key: "" });
 
   const sortedProducts = products.sort((a, b) => {
     return setPredicatedSort(
@@ -36,34 +33,11 @@ const [isAsending, setIsAsending] = useState({ order: true, key: "" });
     }
   }
   // {products} --- props
->>>>>>> main
   return (
     <div>
       <table>
         <thead>
           <tr>
-<<<<<<< HEAD
-            <th>Acciones</th>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Categoría</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((producto) => (
-            <ProductItem
-              key={producto.id}
-              id={producto.id}
-              producto={producto}
-              onEditClick={onEditClick}
-              onDeleteClick={onDeleteClick}
-            />
-          ))}
-        </tbody>
-      </table>
-=======
             <th>#</th>
             <th
               onClick={(evt) =>
@@ -111,11 +85,10 @@ const [isAsending, setIsAsending] = useState({ order: true, key: "" });
           )}
         </tbody>
         {products.map((producto) => (
-          <ProductItem id={producto.id} producto={producto} onEdit={onEdit} onRemove={onRemove}  /> // { id: 323123 , producto:{ name:"dasdas"}}
+          <ProductItem id={producto.id} producto={producto} onEdit={onEdit} onRemove={onRemove} /> // { id: 323123 , producto:{ name:"dasdas"}}
         ))}
-        
-      </table>             
->>>>>>> main
-    </div>
+
+      </table>
+    </div >
   );
 }

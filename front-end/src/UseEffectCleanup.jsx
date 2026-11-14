@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-export function UseEffectCleanup(){
+export function UseEffectCleanup() {
     const [segundos, setSegundos] = useState(0)
 
-    useEffect(()=>{
+    useEffect(() => {
         //inicializar un temporizador
-        const intervalo = setInterval(() =>{
-            setSegundos((prev) => prev +1)
+        const intervalo = setInterval(() => {
+            setSegundos((prev) => prev + 1)
         }, 1000)
 
         return () => {

@@ -3,39 +3,26 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
-<<<<<<< HEAD
 import { GetAllProducts } from './ProductList'
 import { allProducts } from './productosMock.js'
 import { SearchBar } from './SearchBar';
 import { Calculator } from './Calculator';
 import { Catalogo } from './Catalogo.jsx'
-import { UseEffectVariables } from './UseEffectVariables.jsx'
+import { UseEffectSinArreglo } from './UseEffectSinArreglo.jsx'
+import { UseEffectArregloVacio } from './UseEffectArregloVacio.jsx'
+import { PlaceHolder } from './PlaceHolder.jsx';
+import { SearchTable } from './SearchTable.jsx';
+import { SearchForm } from './SearchForm.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
   const [saludo, setSaludo] = useState("Hola desconocido")
   const [searchTerm, setSearchTerm] = useState("")
 
-
   // 3. Filtramos los productos según lo que se escriba
   const filteredProducts = allProducts.filter((producto) =>
     producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   )
-=======
-import { allProducts }  from './productosMock.js'
-import { Catalogo } from './Catalogo.jsx'
-import { UseEffectSinArreglo } from './UseEffectSinArreglo.jsx'
-import { UseEffectArregloVacio } from './UseEffectArregloVacio.jsx'
-import { UseEffectVariables } from './UseEffectVariables.jsx'
-import { UseEffectCleanup } from './UseEffectCleanup.jsx'
-import { SearchTermBox } from './SearchTermBox.jsx'
-import { SearchProduct } from "./SearchProduct"
-import { Calculadora } from "./Calculadora.jsx"
-
-function App() {
-  const [count, setCount] = useState(0);
-  const [saludo, setSaludo] = useState("Hola desconocido");
->>>>>>> main
 
   return (
     <>
@@ -47,56 +34,48 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
-          <h3>Call Api search</h3>
-          <SearchTermBox/>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
-          <UseEffectSinArreglo/>
-          <UseEffectArregloVacio/>
-          <UseEffectVariables/>
-          <UseEffectCleanup/>
         </div>
-<<<<<<< HEAD
 
-        {/*<UseEffectVariables />*/}
+
+
+        {/* Componentes de useEffect que hicimos */}
+        <UseEffectSinArreglo />
+        <UseEffectArregloVacio />
+
+        <h1>🫠</h1>
+        <PlaceHolder />
+        <h1>🫠</h1>
+
+
+        {/* 1. Formulario para Crear */}
+        <SearchForm />
+
+        {/* 2. Tabla para Leer y Borrar */}
+        <SearchTable />
 
         {/* 4. Renderizamos la barra de búsqueda y pasamos los productos filtrados */}
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-
-=======
-        <Calculadora />
-        <SearchProduct products={allProducts} />
->>>>>>> main
         <label>Count is {count}</label>
         <button
           type="button"
           className="counter"
           onClick={() => setCount((count) => count + 1)}
-<<<<<<< HEAD
         >+
-=======
-        >
-          +
->>>>>>> main
         </button>
         <button
           type="button"
           className="counter"
           onClick={() => setCount((count) => count - 1)}
-<<<<<<< HEAD
         >-
-=======
-        >
-          -
->>>>>>> main
         </button>
         <button
           type="button"
           className="counter"
           onClick={() => setCount(() => 0)}
-<<<<<<< HEAD
         > reset
         </button>
       </section>
@@ -109,27 +88,10 @@ function App() {
       <h4>{saludo}</h4>
       <div className="ticks"></div>
 
-      <Catalogo products={allProducts} />
+      <Catalogo products={filteredProducts} />
 
       <Calculator />
 
-=======
-        >
-          {" "}
-          reset
-        </button>
-      </section>
-
-      <input
-        onInput={(evt) => {
-          setSaludo(evt.target.value);
-        }}
-      ></input>
-
-      <h4>{saludo}</h4>
-      <div className="ticks"></div>
-      <Catalogo products={allProducts}/>
->>>>>>> main
       <section id="next-steps">
         <div id="docs">
           <svg className="icon" role="presentation" aria-hidden="true">
@@ -214,7 +176,7 @@ function App() {
       <div className="ticks"></div>
       <section id="spacer"></section>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
