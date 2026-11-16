@@ -12,6 +12,7 @@ import { UseEffectCleanup } from './UseEffectCleanup.jsx'
 import { SearchTermBox } from './SearchTermBox.jsx'
 import { SearchProduct } from "./SearchProduct"
 import { Calculadora } from "./Calculadora.jsx"
+import { PlaceHolder } from './PlaceHolder.jsx'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,7 @@ function App() {
   return (
     <>
       <section id="center">
+        <PlaceHolder/>
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -29,7 +31,7 @@ function App() {
         <div>
           <h1>Get started</h1>
           <h3>Call Api search</h3>
-          <SearchTermBox/>
+          {/* <SearchTermBox/> */}
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
