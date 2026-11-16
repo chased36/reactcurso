@@ -17,6 +17,7 @@ import { PlaceHolderList } from './PlaceHolderList.jsx'
 import { PlaceHolderCreate } from './PlaceHolderCreate.jsx'
 import { PlaceHolderUpdate } from './PlaceHolderUpdate.jsx'
 import { PlaceHolderDelete } from './PlaceHolderDelete.jsx'
+import { PlaceHolderFilterList } from './PlaceHolderFilterList.jsx'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -36,6 +37,8 @@ function App() {
         <PlaceHolderUpdate/>
         <p>Ejercicio DELETE</p>
         <PlaceHolderDelete/>
+        <p>Ejercicio FILTER</p>
+        <PlaceHolderFilterList/>
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
