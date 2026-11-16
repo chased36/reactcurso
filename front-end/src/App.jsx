@@ -14,6 +14,7 @@ import { SearchProduct } from "./SearchProduct"
 import { Calculadora } from "./Calculadora.jsx"
 import { PlaceHolder } from './PlaceHolder.jsx'
 import { PlaceHolderList } from './PlaceHolderList.jsx'
+import { PlaceHolderCreate } from './PlaceHolderCreate.jsx'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -27,6 +28,8 @@ function App() {
         <PlaceHolder/>
         <p>Ejercicio LIST</p>
         <PlaceHolderList/>
+        <p>Ejercicio CREATE</p>
+        <PlaceHolderCreate/>
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
