@@ -20,6 +20,7 @@ import { PlaceHolderDelete } from './PlaceHolderDelete.jsx'
 import { PlaceHolderFilterList } from './PlaceHolderFilterList.jsx'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Home } from './Home.jsx'
+import { DetallePlaceHolder } from './DetallePlaceHolder.jsx'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -35,6 +36,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/detalle/:id" element={<DetallePlaceHolder/>}/>
           </Routes>
           <section id="center">
             <p>Ejercicio GET</p>
