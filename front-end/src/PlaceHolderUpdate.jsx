@@ -6,7 +6,7 @@ import { placeHolderServiceUpdate } from "./services/placeHolderServiceUpdate";
 
 export function PlaceHolderUpdate() {
     const { data, loading, error, recargar } = useAsync(
-        (signal) => placeHolderService.get(signal),
+        (signal) => placeHolderService.get(1, signal),
         []
     );
     const [title, setTitle] = useState("");

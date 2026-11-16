@@ -6,7 +6,7 @@ import { placeHolderServiceDelete } from "./services/placeHolderServiceDelete";
 
 export function PlaceHolderDelete() {
     const { data, loading, error, recargar } = useAsync(
-        (signal) => placeHolderService.get(signal),
+        (signal) => placeHolderService.get(1, signal),
         []
     );
     const [deletedData, setDeletedData] = useState(null);

@@ -4,7 +4,7 @@ import { ErrorPanel } from "./components/ErrorPanel";
 
 export function PlaceHolder() {
     const { data, loading, error, recargar } = useAsync(
-        (signal) => placeHolderService.get(signal),
+        (signal) => placeHolderService.get(1, signal),
         []
     );
 

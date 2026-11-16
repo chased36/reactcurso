@@ -1,9 +1,9 @@
 import { clients } from "./clients";
 
 export const placeHolderService = {
-    async get(signal) {
+    async get(id, signal) {
         const res = await clients.jsonplaceholder.get(
-            "/posts/4",
+            `/posts/${id}`,
             {}
         )
         return res;
