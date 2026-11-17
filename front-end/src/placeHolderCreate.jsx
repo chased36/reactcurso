@@ -120,7 +120,6 @@ export function PlaceHolderCreate() {
                     <p>Contenido: {resultado.body}</p>
                 </div>
             )}
-
         </div>
     );
 }

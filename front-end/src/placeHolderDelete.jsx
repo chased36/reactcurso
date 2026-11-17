@@ -18,6 +18,7 @@ export function PlaceHolderDelete() {
         setLoading(true);
         setError(null);
         setResultado(null);
+
         if (!id || id < 1 || id > 100) {
             setError("Ingresar el ID  entre 1 y 100.");
             setLoading(false);
@@ -30,7 +31,7 @@ export function PlaceHolderDelete() {
             setLoading(false);
             return;
         }
-        setLoading(true);
+        //setLoading(true);
         try {
             const res = await placeHolderDeleteServices.delete(id);
             console.log("Respuesta del servidor:", res);

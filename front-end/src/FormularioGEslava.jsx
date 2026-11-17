@@ -198,8 +198,8 @@ export function FormularioGEslava() {
 
         {editando ? (
 
-          <div class="mag-btns">
-            <button onClick={modificarProducto} class="mag-btn mag-btn-sky">
+          <div className="mag-btns">
+            <button onClick={modificarProducto} className="mag-btn mag-btn-sky">
               Actualizar producto
             </button>
 
@@ -210,7 +210,7 @@ export function FormularioGEslava() {
 
         ) : (
 
-          <button onClick={insertarProducto} class="mag-btn mag-btn-primary">
+          <button onClick={insertarProducto} className="mag-btn mag-btn-primary">
             Agregar producto
           </button>
 

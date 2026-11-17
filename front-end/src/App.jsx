@@ -30,7 +30,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { ListaProductos } from "./ListaProductos.jsx";
 import { DetalleProducto } from "./DetalleProducto.jsx";
 import { NoEncontrado404 } from "./NoEncontrado404.jsx";
-import { DummyJason } from "./DummyJason.jsx";
+import { DummyJson } from "./DummyJson.jsx";
 
 
 function App() {
@@ -96,7 +96,7 @@ function App() {
           </div>
 
         <h3>Integración con API Externa- Capa de servicios conectada a DummyJSON sin modificar componentes</h3>
-        <DummyJason />
+        <DummyJson />
 
 
 

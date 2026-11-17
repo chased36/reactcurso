@@ -7,11 +7,10 @@ export function PlaceHolderFilter() {
     //Estado para almacenar el valor del filtro
     const [filter, setFilter] = useState("");
     //Consultar una lista de elementos
-    const { data, loading, error, recargar }
-        = useAsync(
-            (signal) => placeHolderFilterServices.getListFiltered(signal),
-            []
-        );
+    const { data, loading, error, recargar } = useAsync(
+        (signal) => placeHolderFilterServices.getListFiltered(signal),
+        []
+    );
 
     if (loading) return <p>⏳ Buscando publicaciones...</p>;
 

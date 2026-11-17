@@ -8,5 +8,5 @@ import { HttpClient } from "../HttpClient";
 export const clients = {
   elcris:     new HttpClient(import.meta.env.VITE_API_URL_ELCRIS    ?? "/api"),
   jsonplaceholder:   new HttpClient(import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "/api"),
-  dummyjson: new HttpClient(import.meta.env.VITE_API_URL_DUMMYJSON ?? "/api")
+  dummyjson: new HttpClient(import.meta.env.VITE_API_URL_DUMMYJSON)
 };
