@@ -21,6 +21,8 @@ import { PlaceHolderFilterList } from './PlaceHolderFilterList.jsx'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Home } from './Home.jsx'
 import { DetallePlaceHolder } from './DetallePlaceHolder.jsx'
+import { Menu } from './Menu.jsx'
+import { allPlates } from './platosMock.js'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -58,6 +60,8 @@ function App() {
             </div>
             <div>
               <h1>Get started</h1>
+              <h3>Ejercicio Catalogo (menu)</h3>
+              <Menu plates={allPlates}/>
               <h3>Call Api search</h3>
               {/* <SearchTermBox/> */}
               <p>
