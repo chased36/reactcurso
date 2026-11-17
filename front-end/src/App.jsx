@@ -18,11 +18,16 @@ import { PlaceHolderCreate } from './PlaceHolderCreate.jsx'
 import { PlaceHolderUpdate } from './PlaceHolderUpdate.jsx'
 import { PlaceHolderDelete } from './PlaceHolderDelete.jsx'
 import { PlaceHolderFilterList } from './PlaceHolderFilterList.jsx'
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
 import { Home } from './Home.jsx'
 import { DetallePlaceHolder } from './DetallePlaceHolder.jsx'
 import { Menu } from './Menu.jsx'
 import { allPlates } from './platosMock.js'
+import { MenuRutas } from './MenuConRutas.jsx'
+import { PlateInfo } from './PlateInfo.jsx'
+
+
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -62,6 +67,11 @@ function App() {
               <h1>Get started</h1>
               <h3>Ejercicio Catalogo (menu)</h3>
               <Menu plates={allPlates}/>
+              <h3>Ejercicio Catálogo con Rutas</h3>
+              <Routes>
+                <Route path="/" element={<MenuRutas plates={allPlates}/>}/>
+                <Route path="/plato/:id" element={<><PlateInfo plates={allPlates}/><br/><Link to="/">Volver</Link></>}/>
+              </Routes>
               <h3>Call Api search</h3>
               {/* <SearchTermBox/> */}
               <p>
