@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./form.css";
 import { ProductForm } from "./ProductForm";
 import { GetAllProducts } from "./ProductList";
+import { PlateForm } from "./PlateForm";
 export function Catalogo({ products }) {
   //definir estado para productos, cargando
   const [productos, setProductos] = useState([]);
@@ -76,7 +77,7 @@ export function Catalogo({ products }) {
         </div>
 
         {showForm ? (
-          <ProductForm
+          <PlateForm
             key = {productSeleccionado ? productSeleccionado.id: ''}
             productAEditar={productSeleccionado}
             onSave={handlerSaveProduct}
