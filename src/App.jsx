@@ -3,6 +3,7 @@ import heroImg from "./assets/img/hero.png";
 import reactLogo from "./assets/img/react.svg";
 import viteLogo from "./assets/img/vite.svg";
 import { SearchProduct } from "./components/SearchProduct.jsx";
+import { SearchTermBox } from "./components/searchTermBox.jsx";
 import { allProducts } from "./Utils/productoMock.js";
 import { Calculadora } from "./components/Calculadora.jsx";
 import { Catalogo } from "./components/Catalogo.jsx";
@@ -37,7 +38,8 @@ function App() {
           {/*Ejemplos*/}
         </div>
         {/* Tabla Producto */}
-        <SearchProduct allProducts={allProducts} />
+        <SearchTermBox/>
+        <SearchProduct products={allProducts} />
         {/* Contador */}
         <button
           type="button"
