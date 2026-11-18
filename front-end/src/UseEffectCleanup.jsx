@@ -1,17 +1,19 @@
-export function UseEffectCleanup() {
-    const [segundos, SetSegundos] = useState(0);
+import { useEffect, useState } from "react";
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            SetSegundos((prev) => prev + 1);
-        }, 1000);
+export function UseEffectCleanup(){
+    const [segundos, setSegundos] = useState(0)
+
+    useEffect(()=>{
+        //inicializar un temporizador
+        const intervalo = setInterval(() =>{
+            setSegundos((prev) => prev +1)
+        }, 1000)
 
         return () => {
-            clearInterval(interval);
-        };
+            console.log("Limpiando intervalo para evitar fugas de memoria...")
+            clearInterval(intervalo)
+        }
     }, [])
-    return (
-        <p>Segundos activos en la vista renderada: {segundos}</p>
-    )
 
+    return <p>Segundos activos en la vista rendereada: {segundos}</p>
 }

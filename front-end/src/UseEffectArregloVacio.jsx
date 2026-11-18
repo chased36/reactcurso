@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
-export function UseEffectArregloVacio() {
-    const [users, setUsers] = useState([]);
+export function UseEffectArregloVacio(){
+    const [users,setUsers] = useState([]);
 
-    useEffect(() => {
-        console.log("componente fue cargado: acabamos de consultar datos desde un API")
+
+    useEffect(()=>{
+        console.log("componente useEffectArregloVacio fue cargado: acabamos de consultar datos desde un API")
 
         setTimeout(() => {
             setUsers([{id:1, nombre:"juanito escarcha"},{id:2, nombre:"el cris"}])
@@ -13,7 +14,7 @@ export function UseEffectArregloVacio() {
 
     return (
         <ul>
-            {users.map(x => <li key={x.id}>{x.nombre}</li>)}
+            {users.map(x=> <li key={x.id}>{x.nombre}</li>)}
         </ul>
     )
 }

@@ -1,17 +1,17 @@
-export function UseEffectSinArreglo() {
-  const [contador, setContador] = useState(0);      
+import { useEffect, useState } from "react";
 
-  useEffect(() => {
-    console.log("Se ejecuta el useEffect");
-  }, [contador]);
+export function UseEffectSinArreglo(){
+    const [contador, setContador] = useState(0);
+
+
+    useEffect(()=>{
+        console.log("El componente se acaba de renderizar de useEffectSinArreglo")
+    })
 
     return (
-         <>
-         <p>Contador: {contador}</p>
-         <button onClick={() => setContador(contador + 1)}>Incrementar</button>
-          
+        <>
+          <p>Contador: {contador}</p>   
+          <button onClick={()=> setContador(contador + 1)}>Sumar</button>
         </>
-
     )
-
 }

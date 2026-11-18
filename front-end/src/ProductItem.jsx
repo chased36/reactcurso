@@ -1,18 +1,12 @@
-export function ProductItem({ id, producto, onEdit, onDelete }) {
+import EditButton from "./assets/edit-note.svg"
+import DeleteButton from "./assets/delete-icon.svg"
+export function ProductItem({ id, producto, onEdit, onRemove }) {
   return (
-    <>
-      <tr>
-        <td>
-          <button onClick={() => onEdit(producto)}>
-            <img src="/edit-svgrepo-com.svg" alt="Editar" width="20" height="20" />
-          </button>
-        </td>
-        <td>
-          <button onClick={() => onDelete(producto)}>
-            <img src="/delete-icon.svg" alt="Eliminar" width="20" height="20" />
-          </button>
-        </td>
-        <td>{id}</td>
+    <>             
+      <tr id={id} >
+        <td><img src={EditButton}  onClick={()=> onEdit(producto)} width={32} height={32} style={{ background: 'white', border: 'none', cursor: 'pointer' }}></img></td>
+        <td><img src={DeleteButton}  onClick={()=> { onRemove(id)}} width={32} height={32} style={{ background: 'white', border: 'none', cursor: 'pointer' }}></img></td>
+        {/* <button onClick={()=> onCallbackClick(true)} class="mag-btn mag-btn-sky">Actualizar Producto</button> */}
         <td>{producto.nombre}</td>
         <td>{producto.precio}</td>
         <td>{producto.stock}</td>

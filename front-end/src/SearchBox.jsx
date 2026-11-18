@@ -1,6 +1,6 @@
+// import { useState } from "react"
 export function SearchBox({value, onInputChange}){
-  //const 
-  const response = searchService.searchTerms(value);
+
     // setName(evt.target.value)
     return (
         <>

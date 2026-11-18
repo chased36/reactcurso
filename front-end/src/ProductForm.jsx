@@ -1,11 +1,22 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 export function ProductForm({ productAEditar, onSave, onCancel }) {
-  const [formData, setFormData] = useState(
-    productAEditar
-      ? productAEditar
-      : { id: "", nombre: "", precio: "", stock: "", categoria: "" }
-  );
+  let newProduct = {
+    id: 0,
+    nombre: "",
+    precio: 0,
+    stock: 0,
+    categoria: "",
+  };
+  const [formData, setFormData] = useState(productAEditar || newProduct);
+
+  //Si nosotros le pasamos un producto para edita, estariamos cargando sus datos en el estado de nuestro form local
+  // useEffect(() => {
+  //   if (productAEditar) {
+  //     setFormData(productAEditar);
+  //   } else {
+  //     setFormData(newProduct);
+  //   }
+  // }, [productAEditar]);
 
   const handleChange = (evt) => {
     const { name, value, type, checked } = evt.target;
@@ -19,11 +30,10 @@ export function ProductForm({ productAEditar, onSave, onCancel }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("Datos estan listo para ser enviador al servidor", formData);
     onSave({
       ...formData,
-      precio: Number(formData.precio),
-      stock: Number(formData.stock),
+      precio: +formData.precio,
+      // stock: +formData.stock
     });
   };
 
@@ -49,19 +59,53 @@ export function ProductForm({ productAEditar, onSave, onCancel }) {
         <div className="msf-body">
           <div className="msf-panel msf-panel-1">
             <h3>Your Info</h3>
-            <h4>{productAEditar ? "Editar Producto" : "Agregar Producto"}</h4>
+            <h3>{productAEditar ? "Editar Producto" : "Nuevo Producto"}</h3>
+            {/* id: "p2",
+    nombre: "Mouse Inalámbrico",
+    precio: 45,
+    stock: 0,
+    categoria: "Periféricos", */}
 
-            <input type="text" name="id" placeholder="ID" value={formData.id} readOnly />
-            <input type="text" name="nombre" placeholder="Name" onChange={handleChange} value={formData.nombre} />
-            <input type="number" name="precio" placeholder="precio" onChange={handleChange} value={formData.precio} />
-            <input type="number" name="stock" placeholder="stock" onChange={handleChange} value={formData.stock} />
+            <input type="text" name="id" placeholder="ID" readOnly="true"  value={formData.id} />
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Name"
+              onChange={handleChange}
+              value={formData.nombre}
+            />
+            <input
+              type="text"
+              name="precio"
+              placeholder="precio"
+              onChange={handleChange}
+              value={formData.precio}
+            />
+            <input
+              type="text"
+              name="stock"
+              onChange={handleChange}
+              value={formData.stock}
+            />
+            <input
+              type="text"
+              name="category"
+              onChange={handleChange}
+              value={formData.category}
+            />
             {/* to-do move to selectlist */}
-            <input type="text" name="categoria" placeholder="category" onChange={handleChange} value={formData.categoria} />
+            <input type="text" placeholder="category" readOnly="true" />
             <div className="msf-actions">
               <button>
-                <label htmlFor="step" className="msf-btn">
-                  {productAEditar ? "Actualizar" : "Agregar"}
-                </label>
+                {productAEditar ? (
+                  <label htmlFor="step" className="msf-btn">
+                    Actualizar
+                  </label>
+                ) : (
+                  <label htmlFor="step" className="msf-btn">
+                    Guardar
+                  </label>
+                )}
               </button>
               <button type="button" onClick={onCancel}>
                 Cancelar
