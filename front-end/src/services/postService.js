@@ -29,3 +29,15 @@ export async function updatePost(id, postActualizado) {
   });
   return response.json();
 }
+
+export async function deletePost(id) {
+  const response = await fetch(`${BASE_URL}/posts/${id}`, {
+    method: "DELETE",
+  });
+  return response.ok;
+}
+
+export async function filterPostsByUser(userId) {
+  const response = await fetch(`${BASE_URL}/posts?userId=${userId}`);
+  return response.json();
+}

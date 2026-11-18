@@ -1,6 +1,8 @@
 import { PlaceHolderList } from "./PlaceHolderList";
 import { PlaceHolderCreate } from "./PlaceHolderCreate";
 import { PlaceHolderUpdate } from "./PlaceHolderUpdate";
+import { PlaceHolderDelete } from "./PlaceHolderDelete";
+import { PlaceHolderFilterList } from "./PlaceHolderFilterList";
 
 export function PlaceHolder() {
   return (
@@ -12,6 +14,10 @@ export function PlaceHolder() {
       <PlaceHolderCreate />
       <hr />
       <PlaceHolderUpdate />
+      <hr />
+      <PlaceHolderDelete />
+      <hr />
+      <PlaceHolderFilterList />
     </div>
   );
 }
