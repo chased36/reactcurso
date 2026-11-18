@@ -6,6 +6,8 @@ import { Navbar } from "./components/Navbar";
 import { Home } from "./pages/Home";
 import { Catalogo } from "./pages/Catalogo";
 import { DetalleProducto } from "./pages/DetalleProducto";
+import { CatalogoApi } from "./pages/CatalogoApi";
+import { DetalleApi } from "./pages/DetalleApi";
 import { NotFound } from "./pages/NotFound";
 
 export function AppMarion() {
@@ -14,7 +16,7 @@ export function AppMarion() {
   const agregarProducto = (nuevo) => {
     setProductos((prev) => {
       const siguienteId = prev.length ? Math.max(...prev.map((p) => p.id)) + 1 : 1;
-      return [...prev, { ...nuevo, id: siguienteId }];
+      return [...prev, { ...nuevo, id: siguienteId }]; 
     });
   };
 
@@ -27,6 +29,8 @@ export function AppMarion() {
             <Route path="/" element={<Home />} />
             <Route path="/catalogo" element={<Catalogo productos={productos} onAgregar={agregarProducto} />} />
             <Route path="/catalogo/:id" element={<DetalleProducto productos={productos} />} />
+            <Route path="/api" element={<CatalogoApi />} />
+            <Route path="/api/:id" element={<DetalleApi />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
