@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+#root { max-width: none; width: 100%; text-align: left; border: none; }
+
+.app-marion main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+.navbar {
+  display: flex; gap: 20px; align-items: center;
+  padding: 14px 24px; background: #1e293b; border-bottom: 3px solid #f59e0b;
+}
+.navbar .logo { font-weight: 700; font-size: 1.2rem; margin-right: auto; color: #f59e0b; }
+.navbar a { color: #cbd5e1; text-decoration: none; }
+.navbar a.active { color: #f59e0b; font-weight: 600; }
+
+.card { background: #1e293b; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px #0006; }
+.card a { color: #fbbf24; }
+.encabezado { display: flex; justify-content: space-between; align-items: center; }
+
+.search-box { display: flex; gap: 8px; align-items: center; margin: 16px 0; }
+.search-box input, .formulario input, .formulario select {
+  padding: 8px 10px; border-radius: 6px; border: 1px solid #475569;
+  background: #0f172a; color: #e2e8f0;
+}
+
+.tabla { width: 100%; border-collapse: collapse; }
+.tabla th { background: #f59e0b; color: #0f172a; padding: 10px; cursor: pointer; user-select: none; }
+.tabla td { padding: 10px; border-bottom: 1px solid #334155; }
+.tabla tbody tr:hover { background: #334155; }
+
+.btn { background: #f59e0b; color: #0f172a; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.btn:hover { background: #fbbf24; }
+.btn-sec { background: #475569; color: #e2e8f0; }
+
+.formulario { display: grid; gap: 12px; background: #0f172a; padding: 16px; border-radius: 10px; margin: 16px 0; }
+.formulario label { display: grid; gap: 4px; }
+.formulario .acciones { display: flex; gap: 8px; }
+.form-error { color: #f87171; margin: 0; }
+
+.spinner-box { display: grid; place-items: center; padding: 60px; }
+.spinner {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 5px solid #334155; border-top-color: #f59e0b;
+  animation: girar 0.8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.error-panel { background: #450a0a; border: 1px solid #f87171; border-radius: 10px; padding: 20px; }
+.vacio { text-align: center; color: #94a3b8; }
+.detalle img { max-width: 240px; border-radius: 10px; }
+.lista-ejercicios li { margin: 8px 0; }
