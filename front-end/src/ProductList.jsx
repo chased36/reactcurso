@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { ProductItem } from "./ProductItem";
 
-export function GetAllProducts({ products }) {
-  const [isAsending, setIsAsending] = useState({ order: true, key: "" });
-  // const sortedProducts = products.sort((a, b) => {
-  //   if (isAsending) {
-  //     return a.nombre.localeCompare(b.nombre);
-  //   } else {
-  //     return b.nombre.localeCompare(a.nombre);
-  //   }
-  // });
+export function GetAllProducts({ products, onEdit, onRemove }) {
+const [isAsending, setIsAsending] = useState({ order: true, key: "" });
 
   const sortedProducts = products.sort((a, b) => {
     return setPredicatedSort(
@@ -39,7 +32,6 @@ export function GetAllProducts({ products }) {
         return;
     }
   }
-
   // {products} --- props
   return (
     <div>
@@ -92,7 +84,11 @@ export function GetAllProducts({ products }) {
             </tr>
           )}
         </tbody>
-      </table>
+        {products.map((producto) => (
+          <ProductItem id={producto.id} producto={producto} onEdit={onEdit} onRemove={onRemove}  /> // { id: 323123 , producto:{ name:"dasdas"}}
+        ))}
+        
+      </table>             
     </div>
   );
 }
