@@ -5,6 +5,11 @@ export async function getAllPosts() {
   return response.json();
 }
 
+export async function getPostById(id) {
+  const response = await fetch(`${BASE_URL}/posts/${id}`);
+  return response.json();
+}
+
 export async function createPost(nuevoPost) {
   const response = await fetch(`${BASE_URL}/posts`, {
     method: "POST",

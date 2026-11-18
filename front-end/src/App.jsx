@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PlaceHolder } from "./PlaceHolder";
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
@@ -39,19 +40,7 @@ function App() {
           <img src={reactLogo} className="framework" alt="React logo" />
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
-        <div>
-          <h1>Get started</h1>
-          <h3>Call Api search</h3>
-          <SearchTermBox/>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-          <UseEffectSinArreglo/>
-          <UseEffectArregloVacio/>
-          <UseEffectVariables/>
-          <UseEffectCleanup/>
-          <PlaceHolder/>
-        </div>
+        
         <Calculadora />
         <SearchProduct products={allProducts} />
         <label>Count is {count}</label>
@@ -84,7 +73,20 @@ function App() {
           setSaludo(evt.target.value);
         }}
       ></input>
-
+      <div>
+          <h1>Get started</h1>
+          <h3>Call Api search</h3>
+          <SearchTermBox/>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+          </p>
+          <UseEffectSinArreglo/>
+          <UseEffectArregloVacio/>
+          <UseEffectVariables/>
+          <UseEffectCleanup/>
+        
+        </div>
+        <PlaceHolder/>
       <h4>{saludo}</h4>
       <div className="ticks"></div>
       <Catalogo products={allProducts}/>

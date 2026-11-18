@@ -2,20 +2,19 @@ import { useState } from "react";
 import { ProductItem } from "./ProductItem";
 
 export function GetAllProducts({ products, onEdit, onRemove }) {
-const [isAsending, setIsAsending] = useState({ order: true, key: "" });
+  const [isAsending, setIsAsending] = useState({ order: true, key: "" });
 
-  const sortedProducts = products.sort((a, b) => {
+  const sortedProducts = [...products].sort((a, b) => {
     return setPredicatedSort(
       a[isAsending.key],
       b[isAsending.key],
-      isAsending.order,
+      isAsending.order
     );
   });
 
   function setPredicatedSort(a, b, order) {
     switch (typeof a) {
       case "number":
-        // order - default asc
         if (order) {
           return a - b;
         } else {
@@ -28,11 +27,12 @@ const [isAsending, setIsAsending] = useState({ order: true, key: "" });
           return b.localeCompare(a);
         }
       case "boolean":
-        //to-do will implement it
-        return;
+        return 0;
+      default:
+        return 0;
     }
   }
-  // {products} --- props
+
   return (
     <div>
       <table>
@@ -40,29 +40,29 @@ const [isAsending, setIsAsending] = useState({ order: true, key: "" });
           <tr>
             <th>#</th>
             <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "nombre" })
+              onClick={() =>
+                setIsAsending({ order: !isAsending.order, key: "nombre" })
               }
             >
               Nombre
             </th>
             <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "precio" })
+              onClick={() =>
+                setIsAsending({ order: !isAsending.order, key: "precio" })
               }
             >
               Precio
             </th>
             <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "stock" })
+              onClick={() =>
+                setIsAsending({ order: !isAsending.order, key: "stock" })
               }
             >
               Stock
             </th>
             <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "categoria" })
+              onClick={() =>
+                setIsAsending({ order: !isAsending.order, key: "categoria" })
               }
             >
               Categoria
@@ -76,19 +76,17 @@ const [isAsending, setIsAsending] = useState({ order: true, key: "" });
                 key={producto.id}
                 id={producto.id}
                 producto={producto}
+                onEdit={onEdit}
+                onRemove={onRemove}
               />
             ))
           ) : (
             <tr>
-              <th>No se encontraron productos</th>
+              <th colSpan="5">No se encontraron productos</th>
             </tr>
           )}
         </tbody>
-        {products.map((producto) => (
-          <ProductItem id={producto.id} producto={producto} onEdit={onEdit} onRemove={onRemove}  /> // { id: 323123 , producto:{ name:"dasdas"}}
-        ))}
-        
-      </table>             
+      </table>
     </div>
   );
 }
