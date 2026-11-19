@@ -1,5 +1,10 @@
 import { clients } from "./clients";
 
+const unpack = (res) => {
+  if (Array.isArray(res)) return res;
+  return res?.data ?? res?.results ?? res?.items ?? res?.products ?? [];
+};
+
 export const getProduct = {
     async get(id, signal) {
         const res = await clients.dummyjson.get(
@@ -15,6 +20,7 @@ export const getAllProducts = {
             `/products`,
             {signal}
         )
-        return res;
+        console.log("getAllProducts.get res:", res);
+        return unpack(res);
     }
 }
