@@ -27,6 +27,7 @@ import { MenuRutas } from './MenuConRutas.jsx'
 import { PlateInfo } from './PlateInfo.jsx'
 import { Product } from './getProducto.jsx'
 import { Products } from './getTodosLosProductos.jsx'
+import { SearchProducts } from './searchProductos.jsx'
 
 
 
@@ -34,6 +35,7 @@ import { Products } from './getTodosLosProductos.jsx'
 function App() {
   const [count, setCount] = useState(0);
   const [saludo, setSaludo] = useState("Hola desconocido");
+  const [query, setQuery] = useState("");
 
 
   return (
@@ -44,8 +46,8 @@ function App() {
         </nav>
         <main>
           <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/detalle/:id" element={<DetallePlaceHolder/>}/>
+            <Route path="/" element={<Home />} />
+            <Route path="/detalle/:id" element={<DetallePlaceHolder />} />
           </Routes>
           <section id="center">
             <p>Ejercicio GET</p>
@@ -68,17 +70,21 @@ function App() {
             <div>
               <h1>Get started</h1>
               <h3>Ejercicio Catalogo (menu)</h3>
-              <Menu plates={allPlates}/>
+              <Menu plates={allPlates} />
               <h3>Ejercicio Catálogo con Rutas</h3>
+              <p>Ingresa la ruta del plato que deseas ver como /plato/id o da click en el enlace del plato.</p>
               <Routes>
-                <Route path="/" element={<MenuRutas plates={allPlates}/>}/>
-                <Route path="/plato/:id" element={<><PlateInfo plates={allPlates}/><br/><Link to="/">Volver</Link></>}/>
+                <Route path="/" element={<MenuRutas plates={allPlates} />} />
+                <Route path="/plato/:id" element={<><PlateInfo plates={allPlates} /><br /><Link to="/">Volver</Link></>} />
               </Routes>
               <h3>Call Api DummyJSON</h3>
-              <h2>GET de 1 producto</h2>
-              <Product/>
-              <h2>GET de todos los productos</h2>
-              <Products/>
+              <h3>GET de 1 producto</h3>
+              <Product />
+              <h3>GET de todos los productos</h3>
+              <Products />
+              <h2>Search Productos</h2>
+              <input type="text" value={query} placeholder="Buscar productos..." onChange={(e) => setQuery(e.target.value)} />
+              <SearchProducts query={query} />
               {/* <SearchTermBox/> */}
               <p>
                 Edit <code>src/App.jsx</code> and save to test <code>HMR</code>

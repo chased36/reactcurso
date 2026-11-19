@@ -20,7 +20,15 @@ export const getAllProducts = {
             `/products`,
             {signal}
         )
-        console.log("getAllProducts.get res:", res);
+        return unpack(res);
+    }
+}
+export const searchProducts = {
+    async search(query, signal) {
+        const res = await clients.dummyjson.get(
+            `/products/search?q=${query}`,
+            {signal}
+        )
         return unpack(res);
     }
 }
