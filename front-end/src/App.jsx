@@ -1,82 +1,47 @@
-import { useState } from "react";
 import "./App.css";
 
-import { GetAllProducts } from "./ProductsList";
-import { allProducts } from "./productsMock";
-import { Calculadora } from "./Calculadora";
-import { Catalogo } from "./Catalogo";
-import { UseEffectSinArreglo } from "./UseEffectSinArreglo";
-import { UseEffectConArregloVacio } from "./UseEffectConArregloVacio";
-import { UseEffectConArregloVariable } from "./UseEffectConArregloVariable";
-import { UseEffectCleanup } from "./UseEffectCleanup";
-import { SearchTermBox } from "./SearchTermBox";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import { MetodoGet } from "./components/placeholder/MetodoGet";
+import { MetodoGetId } from "./components/placeholder/MetodoGetId";
+import { MetodoList } from "./components/placeholder/MetodoList";
+import { MetodoCreate } from "./components/placeholder/MetodoCreate";
+import { MetodoUpdate } from "./components/placeholder/MetodoUpdate";
+import { MetodoDelete } from "./components/placeholder/MetodoDelete";
+import { MetodoFilter } from "./components/placeholder/MetodoFilter";
+
+import { Home } from "./Home";
+import { DetallePlaceHolder } from "./DetallePlaceHolder";
 
 function App() {
-  const [contador, setContador] = useState(0);
-  const [saludo, setSaludo] = useState("Hola Desconocido");
-
   return (
-    <>
-      <section id="center">
-        <Calculadora />
-        <hr />
-        <h2>UseEffect sin Arreglo</h2>
-        <UseEffectSinArreglo />
-        <hr />
-        <h2>UseEffect con Arreglo Vacío</h2>
-        <UseEffectConArregloVacio />
-        <hr />
-        <h2>UseEffect con Arreglo con Variable</h2>
-        <UseEffectConArregloVariable />
-        <hr />
-        <h2>UseEffect con Cleanup</h2>
-        <UseEffectCleanup />
-        <hr />
-        <h2>Call API Search</h2>
-        <SearchTermBox />
-        <hr />
-        <h2>Tabla con Búsqueda</h2>
-        <GetAllProducts products={allProducts} />
-        <hr />
-        <h2>Contador</h2>
-        <p>El Contador está en: {contador}</p>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setContador((contador) => contador + 1)}
-        >
-          +
-        </button>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setContador((contador) => contador - 1)}
-        >
-          -
-        </button>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setContador(() => 0)}
-        >
-          Inicializar
-        </button>
-      </section>
-      <hr />
-      <h2>Saludo Personalizado</h2>
-      <input
-        value={saludo}
-        onChange={(evt) => {
-          setSaludo(evt.target.value);
-        }}
-      ></input>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        <h2>JSONPlaceholder - Métodos HTTP</h2>
+        <Link to="/placeholder">GET</Link>
+        <Link to="/placeholderdetalle/6">GET por ID</Link>
+        <Link to="/placeholderlist">LIST</Link>
+        <Link to="/placeholdercreate">CREATE</Link>
+        <Link to="/placeholderupdate">UPDATE</Link>
+        <Link to="/placeholderdelete">DELETE</Link>
+        <Link to="/placeholderfilter/1">FILTER</Link>
+      </nav>
 
-      <h4>Hola: {saludo}</h4>
-      <hr />
-      <h2>CRUD (Create, Read, Update and Delete) en Tabla</h2>
-      <Catalogo products={allProducts} />
-      <section id="spacer"></section>
-    </>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/detalle/:id" element={<DetallePlaceHolder />} />
+          <Route path="/placeholder" element={<MetodoGet />} />
+          <Route path="/placeholderdetalle/:id" element={<MetodoGetId />} />
+          <Route path="/placeholderlist" element={<MetodoList />} />
+          <Route path="/placeholdercreate" element={<MetodoCreate />} />
+          <Route path="/placeholderupdate" element={<MetodoUpdate />} />
+          <Route path="/placeholderdelete" element={<MetodoDelete />} />
+          <Route path="/placeholderfilter/:userId" element={<MetodoFilter />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 

@@ -167,7 +167,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4.5px;
     border: 5px solid transparent;
@@ -181,4 +181,37 @@
     right: 0;
     border-right-color: var(--border);
   }
+}
+
+/* Menú de navegación */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+nav h2 {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+nav a {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 6px;
+  background: var(--accent-bg);
+  color: var(--text-h);
+  text-decoration: none;
+  border: 1px solid var(--accent-border);
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background: var(--accent);
+  color: white;
 }

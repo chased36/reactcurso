@@ -226,3 +226,41 @@
     border-right: none;
   }
 }
+
+/* =========================================
+   5. PANEL DE ERRORES (ErrorPanel)
+   ========================================= */
+.mag-error {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.08);
+  color: #f0f0f0;
+}
+
+.mag-error-title {
+  margin: 0 0 8px;
+  color: #f87171;
+  font-size: 1.1rem;
+}
+
+.mag-error-message {
+  margin: 8px 0;
+}
+
+.mag-error-hint {
+  margin: 8px 0;
+  color: #fbbf24;
+}
+
+.mag-error-details {
+  margin: 12px 0;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.mag-error-details pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
