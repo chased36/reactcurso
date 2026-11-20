@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import { MetodoGet } from "./components/placeholder/MetodoGet";
 import { MetodoGetId } from "./components/placeholder/MetodoGetId";
@@ -10,12 +10,44 @@ import { MetodoUpdate } from "./components/placeholder/MetodoUpdate";
 import { MetodoDelete } from "./components/placeholder/MetodoDelete";
 import { MetodoFilter } from "./components/placeholder/MetodoFilter";
 
+import { AuthProvider } from "./services/authProvider";
+import { useAuth } from "./services/useAuth";
+import { LoginForm } from "./loginForm";
+import { ProtectedRoute } from "./protectedRoute";
+
 import { Home } from "./Home";
 import { DetallePlaceHolder } from "./DetallePlaceHolder";
 
-function App() {
+function AppShell() {
+  const { user, status, logout } = useAuth();
+
+  if (status === "loading") {
+    return (
+      <main className="session-screen" aria-live="polite">
+        <span className="loader" aria-hidden="true" />
+        <p>Verificando sesión...</p>
+      </main>
+    );
+  }
+
+  if (status !== "authenticated") {
+    return <LoginForm />;
+  }
+
+  async function handleLogout() {
+    await logout();
+  }
+
   return (
-    <BrowserRouter>
+    <>
+      <header>
+        <span>Usuario: {user?.name || user?.email}</span>
+
+        <button type="button" onClick={handleLogout}>
+          Cerrar sesión
+        </button>
+      </header>
+
       <nav>
         <Link to="/">Home</Link>
         <h2>JSONPlaceholder - Métodos HTTP</h2>
@@ -30,17 +62,101 @@ function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/detalle/:id" element={<DetallePlaceHolder />} />
-          <Route path="/placeholder" element={<MetodoGet />} />
-          <Route path="/placeholderdetalle/:id" element={<MetodoGetId />} />
-          <Route path="/placeholderlist" element={<MetodoList />} />
-          <Route path="/placeholdercreate" element={<MetodoCreate />} />
-          <Route path="/placeholderupdate" element={<MetodoUpdate />} />
-          <Route path="/placeholderdelete" element={<MetodoDelete />} />
-          <Route path="/placeholderfilter/:userId" element={<MetodoFilter />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/detalle/:id"
+            element={
+              <ProtectedRoute>
+                <DetallePlaceHolder />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholder"
+            element={
+              <ProtectedRoute>
+                <MetodoGet />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderdetalle/:id"
+            element={
+              <ProtectedRoute>
+                <MetodoGetId />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderlist"
+            element={
+              <ProtectedRoute>
+                <MetodoList />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholdercreate"
+            element={
+              <ProtectedRoute>
+                <MetodoCreate />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderupdate"
+            element={
+              <ProtectedRoute>
+                <MetodoUpdate />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderdelete"
+            element={
+              <ProtectedRoute>
+                <MetodoDelete />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderfilter/:userId"
+            element={
+              <ProtectedRoute>
+                <MetodoFilter />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
