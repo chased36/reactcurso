@@ -264,3 +264,24 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* =========================================
+   6. BOTONES DE ACCIÓN DEL CATÁLOGO
+   ========================================= */
+.mag-btn-icon {
+  padding: 0.4rem;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+}
+
+.mag-btn-icon img {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+.mag-btn-icon:focus-visible {
+  outline: 3px solid #b8ff57;
+  outline-offset: 3px;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./form.css";
 import { ProductForm } from "./ProductForm";
 import { CatalogoList } from "./CatalogoList";
@@ -12,19 +12,19 @@ export function Catalogo({ products }) {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
+    const temporizador = setTimeout(() => {
       setIsLoading(false);
-      setProductos(products);
     }, 2500);
+
+    return () => clearTimeout(temporizador);
   }, []);
 
   const handlerSalvarProducto = (nuevoOActualizado) => {
     // Update: Reemplazar el Producto Seleccionado con el Id
     if (productoSeleccionado) {
-      // Reemplazamos el Producto que coincida con el Id
       setProductos((prev) =>
         prev.map((p) =>
-          p.id == productoSeleccionado.id ? nuevoOActualizado : p,
+          p.id === productoSeleccionado.id ? nuevoOActualizado : p,
         ),
       );
     } else {
@@ -41,9 +41,21 @@ export function Catalogo({ products }) {
   };
 
   const handlerEliminarProducto = (id) => {
-    //Eliminar, Filtrar o Sacar Producto con el Id Seleccionado
-    //Podríamos Eliminar con Filter o Slice
-    setProductos((prev) => prev.filter((p) => p.id != id));
+    const productoAEliminar = productos.find((p) => p.id === id);
+
+    if (!productoAEliminar) {
+      return;
+    }
+
+    const confirmar = window.confirm(
+      `¿Estás seguro de que deseas eliminar el producto "${productoAEliminar.nombre}"?`,
+    );
+
+    if (!confirmar) {
+      return;
+    }
+
+    setProductos((prev) => prev.filter((p) => p.id !== id));
   };
 
   const handlerIniciarEdicion = (producto) => {
@@ -62,8 +74,10 @@ export function Catalogo({ products }) {
           onRemove={handlerEliminarProducto}
         />
       )}
+
       <div className="mag-btns">
         <button
+          type="button"
           onClick={() => {
             setProductoSeleccionado(null);
             setShowForm(true);
@@ -73,6 +87,7 @@ export function Catalogo({ products }) {
           Agregar Producto
         </button>
       </div>
+
       {showForm ? (
         <ProductForm
           key={productoSeleccionado ? productoSeleccionado.id : ""}

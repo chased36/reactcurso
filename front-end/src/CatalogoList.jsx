@@ -3,7 +3,6 @@ import { CatalogoItem } from "./CatalogoItem";
 
 export function CatalogoList({ products, onEdit, onRemove }) {
   const [search, setSearch] = useState("");
-  //const [canHandleForm, setCanHandleForm] = useState(false);
 
   const [sortConfig, setSortConfig] = useState({
     columna: null,
@@ -28,10 +27,19 @@ export function CatalogoList({ products, onEdit, onRemove }) {
     }));
   }
 
+  function indicadorOrden(columna) {
+    if (sortConfig.columna !== columna) {
+      return "↕";
+    }
+
+    return sortConfig.direccion === "asc" ? "↑" : "↓";
+  }
+
   const productosOrdenados = [...products].sort((a, b) => {
-    if (sortConfig.columna === "") {
+    if (!sortConfig.columna) {
       return 0;
     }
+
     const valueA = a[sortConfig.columna];
     const valueB = b[sortConfig.columna];
 
@@ -49,6 +57,7 @@ export function CatalogoList({ products, onEdit, onRemove }) {
         },
       );
     }
+
     return sortConfig.direccion === "asc" ? comparacion : -comparacion;
   });
 
@@ -58,12 +67,14 @@ export function CatalogoList({ products, onEdit, onRemove }) {
       : productosOrdenados.filter((p) =>
           p.nombre.toLowerCase().includes(search.trim().toLowerCase()),
         );
+
   const primerProductoEncontrado =
     search.trim() === ""
       ? productosOrdenados
       : productosOrdenados.find((p) =>
           p.nombre.toLowerCase().includes(search.trim().toLowerCase()),
         );
+
   const productosAMostrar =
     search.trim() === ""
       ? productosFiltrados
@@ -73,18 +84,92 @@ export function CatalogoList({ products, onEdit, onRemove }) {
 
   return (
     <div>
+      <label htmlFor="buscarProducto">Buscar Producto: </label>
+      <input
+        id="buscarProducto"
+        type="text"
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+      />
+
       <table onClick={manejarClicTabla}>
         <thead>
           <tr>
-            <th data-sort-key="iconoUpdate"></th>
-            <th data-sort-key="iconoDelete"></th>
-            <th data-sort-key="id">#</th>
-            <th data-sort-key="nombre">Nombre</th>
-            <th data-sort-key="precio">Precio</th>
-            <th data-sort-key="stock">Stock</th>
-            <th data-sort-key="categoria">Categoría</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+            <th
+              scope="col"
+              data-sort-key="id"
+              aria-sort={
+                sortConfig.columna === "id"
+                  ? sortConfig.direccion === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              # {indicadorOrden("id")}
+            </th>
+
+            <th
+              scope="col"
+              data-sort-key="nombre"
+              aria-sort={
+                sortConfig.columna === "nombre"
+                  ? sortConfig.direccion === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              Nombre {indicadorOrden("nombre")}
+            </th>
+
+            <th
+              scope="col"
+              data-sort-key="precio"
+              aria-sort={
+                sortConfig.columna === "precio"
+                  ? sortConfig.direccion === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              Precio {indicadorOrden("precio")}
+            </th>
+
+            <th
+              scope="col"
+              data-sort-key="stock"
+              aria-sort={
+                sortConfig.columna === "stock"
+                  ? sortConfig.direccion === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              Stock {indicadorOrden("stock")}
+            </th>
+
+            <th
+              scope="col"
+              data-sort-key="categoria"
+              aria-sort={
+                sortConfig.columna === "categoria"
+                  ? sortConfig.direccion === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              Categoría {indicadorOrden("categoria")}
+            </th>
           </tr>
         </thead>
+
         <tbody>
           {productosAMostrar.length > 0 ? (
             productosAMostrar.map((producto) => (
