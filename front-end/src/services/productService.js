@@ -9,7 +9,7 @@ export const getProduct = {
     async get(id, signal) {
         const res = await clients.dummyjson.get(
             `/products/${id}`,
-            {}
+            { signal }
         )
         return res;
     }
@@ -37,6 +37,27 @@ export const createProduct = {
         const res = await clients.dummyjson.post(
             `/products/add`,
             product,
+            { signal }
+        )
+        return res;
+    }
+}
+
+export const updateProduct = {
+    async update(id, product, signal) {
+        const res = await clients.dummyjson.put(
+            `/products/${id}`,
+            product,
+            { signal }
+        )
+        return res;
+    }
+}
+
+export const deleteProduct = {
+    async delete(id, signal) {
+        const res = await clients.dummyjson.delete(
+            `/products/${id}`,
             { signal }
         )
         return res;

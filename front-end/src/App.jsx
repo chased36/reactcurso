@@ -29,6 +29,8 @@ import { Product } from './getProducto.jsx'
 import { Products } from './getTodosLosProductos.jsx'
 import { SearchProducts } from './searchProductos.jsx'
 import { AddProduct } from './createProduct.jsx'
+import { UpdateProduct } from './updateProduct.jsx'
+import { DeleteProduct } from './deleteProduct.jsx'
 
 
 
@@ -103,6 +105,10 @@ function App() {
                 <button type="submit">Crear Producto</button>
               </form>
               <AddProduct product={product} />
+              <h2>Actualizar Producto</h2>
+              <UpdateProduct />
+              <h2>Eliminar Producto</h2>
+              <DeleteProduct />
               {/* <SearchTermBox/> */}
               <p>
                 Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
