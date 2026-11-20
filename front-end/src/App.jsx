@@ -28,7 +28,7 @@ import { PlateInfo } from './PlateInfo.jsx'
 import { Product } from './getProducto.jsx'
 import { Products } from './getTodosLosProductos.jsx'
 import { SearchProducts } from './searchProductos.jsx'
-
+import { AddProduct } from './createProduct.jsx'
 
 
 
@@ -36,7 +36,7 @@ function App() {
   const [count, setCount] = useState(0);
   const [saludo, setSaludo] = useState("Hola desconocido");
   const [query, setQuery] = useState("");
-
+  const [product, setProduct] = useState();
 
   return (
     <>
@@ -85,6 +85,24 @@ function App() {
               <h2>Search Productos</h2>
               <input type="text" value={query} placeholder="Buscar productos..." onChange={(e) => setQuery(e.target.value)} />
               <SearchProducts query={query} />
+              <h2>Crear Producto</h2>
+              <form
+                method="POST"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setProduct({
+                    title: e.currentTarget.elements.titulo.value,
+                    price: parseFloat(e.currentTarget.elements.precio.value),
+                  });
+                }}
+              >
+                <label htmlFor="titulo">Titulo:</label>
+                <input type="text" id="titulo" name="titulo" onSubmit={(e) => setProduct({ ...product, title: e.target.value })} />
+                <label htmlFor="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" onSubmit={(e) => setProduct({ ...product, price: parseFloat(e.target.value) })} />
+                <button type="submit">Crear Producto</button>
+              </form>
+              <AddProduct product={product} />
               {/* <SearchTermBox/> */}
               <p>
                 Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
