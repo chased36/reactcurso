@@ -2,96 +2,108 @@ import { useState } from "react";
 import { ProductItem } from "./ProductItem";
 import { SearchProduct } from "./SearchProduct";
 
-
-export function ProductList({ products }) {
+// Lista de consulta con búsqueda por nombre
+export function ProductList({ products  = []}) {
 
   const [textoBusqueda, setTextoBusqueda] = useState("");
 
-  const productosFiltrados = products.filter(producto => producto.nombre
+  const productosFiltrados = products.filter(producto => 
+    producto.nombre
     .toLowerCase()
     .includes(textoBusqueda.toLowerCase())
   );
-
   return (
     <div>
-
       <SearchProduct
         textoBusqueda={textoBusqueda}
         setTextoBusqueda={setTextoBusqueda}
       />
 
-      <table>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Identificador</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Categoria</th>
+          </tr>
+        </thead>
+
         <tbody>
-          {productosFiltrados.map(producto => (
-            <ProductItem
-              key={producto.id}
-              producto={producto}
-            />
-          ))}
+          {productosFiltrados.length > 0 ? (
+            productosFiltrados.map((producto) => (
+              <ProductItem
+                key={producto.id}
+                id={producto.id}
+                producto={producto}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No se encontraron productos</td>
+            </tr>
+          )}
         </tbody>
       </table>
-
     </div>
   );
 }
 
-export function GetAllProducts({ products, onEdit, onRemove }) {
-  // {products} --- props
-  const [ascendente, setAscendente] = useState(true);
-  const [campoOrden, setCampoOrden] = useState("nombre");
 
-  const productosOrdenados = [...products].sort((a, b) => {
-
-    if (campoOrden === "nombre") {
-      return ascendente ? a.nombre.localeCompare(b.nombre) : b.nombre.localeCompare(a.nombre);
-    }
-    if (campoOrden === "precio") {
-      return ascendente ? a.precio - b.precio : b.precio - a.precio;
-    }
-    if (campoOrden === "stock") {
-      return ascendente ? a.stock - b.stock : b.stock - a.stock;
-    }
-    if (campoOrden === "categoria") {
-      return ascendente ? a.categoria.localeCompare(b.categoria) : b.categoria.localeCompare(a.categoria);
-    }
-    return b.nombre.localeCompare(a.nombre);
+//Catálogo con edición, eliminación y ordenamiento
+export function GetAllProducts({ 
+  products=[], 
+  onEdit, 
+  onRemove
+ })
+ {
+  const [sort, setSort] = useState({ 
+    order: "asc", 
+    key: "" 
   });
 
-  const ordenarPorNombre = () => {
-    if (campoOrden === "nombre") {
-      setAscendente(!ascendente);
-    } else {
-      setCampoOrden("nombre");
-      setAscendente(true);
-    }
-  };
+  function handleSort(key) {
+    setSort((current) => ({
+      key,
+      order:
+        current.key === key && current.order === "asc"
+          ? "desc"
+          : "asc",
+    }));
+  }
 
-  const ordenarPorPrecio = () => {
-    if (campoOrden === "precio") {
-      setAscendente(!ascendente);
-    } else {
-      setCampoOrden("precio");
-      setAscendente(true);
+  function compareValues(a, b) {
+    if (typeof a === "number" && typeof b === "number") {
+      return a - b;
     }
-  };
-  const ordenarPorStock = () => {
-    if (campoOrden === "stock") {
-      setAscendente(!ascendente);
-    } else {
-      setCampoOrden("stock");
-      setAscendente(true);
-    }
-  };
-  const ordenarPorCategoria = () => {
-    if (campoOrden === "categoria") {
-      setAscendente(!ascendente);
-    } else {
-      setCampoOrden("categoria");
-      setAscendente(true);
-    }
-  };
 
-  return (
+    return String(a ?? "").localeCompare(
+      String(b ?? ""), 
+      "es", 
+      {
+        sensitivity: "base",
+        numeric: true,
+    });
+  }
+
+  const sortedProducts = sort.key
+    ? [...products].sort((a, b) => {
+        const result = compareValues(
+          a[sort.key], 
+          b[sort.key]
+        );
+        return sort.order === "asc" ? result : -result;
+      })
+    : [...products];
+
+  function sortIndicator(key) {
+    if (sort.key !== key) return "";
+
+    return sort.order === "asc" ? " ▲" : " ▼";
+  }
+
+   return (
     <div>
       <table border="1">
         <thead>
@@ -99,39 +111,55 @@ export function GetAllProducts({ products, onEdit, onRemove }) {
             <th>Editar</th>
             <th>Eliminar</th>
             <th>Identificador</th>
+
             <th
-              onClick={ordenarPorNombre}
+              onClick={() => handleSort("nombre")}
               style={{ cursor: "pointer" }}
             >
-              Nombre {campoOrden === "nombre" && (ascendente ? "↑" : "↓")}
+              Nombre{sortIndicator("nombre")}
             </th>
+
             <th
-              onClick={ordenarPorPrecio}
+              onClick={() => handleSort("precio")}
               style={{ cursor: "pointer" }}
             >
-              Precio {campoOrden === "precio" && (ascendente ? "↑" : "↓")}
+              Precio{sortIndicator("precio")}
             </th>
-            <th onClick={ordenarPorStock}
-              style={{ cursor: "pointer" }}>
-              Stock {campoOrden === "stock" && (ascendente ? "↑" : "↓")}
-            </th>
-            <th onClick={ordenarPorCategoria}
+
+            <th
+              onClick={() => handleSort("stock")}
               style={{ cursor: "pointer" }}
             >
-              Categoria {campoOrden === "categoria" && (ascendente ? "↑" : "↓")}
+              Stock{sortIndicator("stock")}
+            </th>
+
+            <th
+              onClick={() => handleSort("categoria")}
+              style={{ cursor: "pointer" }}
+            >
+              Categoria{sortIndicator("categoria")}
             </th>
           </tr>
         </thead>
+
         <tbody>
-          {productosOrdenados.map((producto) => (
-            <ProductItem
-              key={producto.id}
-              id={producto.id}
-              producto={producto}
-              onEdit={onEdit}
-              onRemove={onRemove}
-            /> // { id: 323123 , producto:{ name:"dasdas"}}
-          ))}
+          {sortedProducts.length > 0 ? (
+            sortedProducts.map((producto) => (
+              <ProductItem
+                key={producto.id}
+                id={producto.id}
+                producto={producto}
+                onEdit={onEdit}
+                onRemove={onRemove}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7">
+                No se encontraron productos
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

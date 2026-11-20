@@ -6,7 +6,15 @@ import { HttpClient } from "../HttpClient";
  * Los services importan de aquí, nunca crean clientes.
  */
 export const clients = {
-  elcris:     new HttpClient(import.meta.env.VITE_API_URL_ELCRIS    ?? "/api"),
-  jsonplaceholder:   new HttpClient(import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "/api"),
-  dummyjson: new HttpClient(import.meta.env.VITE_API_URL_DUMMYJSON)
+  elcris: new HttpClient(
+    import.meta.env.VITE_API_URL_ELCRIS    ?? "/api"),
+
+  jsonplaceholder:   new HttpClient(
+    import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "/api"),
+
+  dummyjson: new HttpClient(
+    import.meta.env.VITE_API_URL_DUMMYJSON),
+
+  auth: new HttpClient(
+    import.meta.env.VITE_API_AUTH ?? "/api")
 };

@@ -1,10 +1,11 @@
+
 import { useAsync } from "./hooks/useAsync";
 import { placeHolderServices } from "./services/placeHolderService";
 import { ErrorPanel } from "./components/ErrorPanel";
 
 export function PlaceHolder() {
   const { data, loading, error, recargar } = useAsync(
-    (signal) => placeHolderServices.get(signal),
+    (signal) => placeHolderServices.get(4,signal),
     []
   );
 

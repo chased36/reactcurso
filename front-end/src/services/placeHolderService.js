@@ -12,8 +12,8 @@ const responseUnpack = (res) => {
 export const placeHolderServices = {
   async get(query, signal) {
     const res = await clients.jsonplaceholder.get(
-      "/posts/4",
-      {},
+       `/posts/${id} `,
+      {signal },
       
     );
 

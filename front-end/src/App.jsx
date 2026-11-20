@@ -1,278 +1,287 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
-import { GetAllProducts } from './ProductList'
-import { allProducts } from './productosMock.js'
-import { Catalogo } from './Catalogo.jsx'
-import { UseEffectSinArreglo } from './UseEffectSinArreglo.jsx'
-import { UseEffectArregloVacio } from './UseEffectArregloVacio.jsx'
-import { UseEffectVariables } from './UseEffectVariables.jsx'
-import { UseEffectCleanup } from './UseEffectCleanup.jsx'
-import { SearchTermBox } from './SearchTermBox.jsx'
-import { SearchProduct } from "./SearchProduct"
-import { Calculadora } from "./Calculadora.jsx"
-import { ProductList } from "./ProductList"
-import { ProductForm } from "./ProductForm.jsx";
-import { PlaceHolder } from './placeHolder.jsx'
+import {
+  BrowserRouter,
+  Link,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
+import "./App.css";
+
+import { AuthProvider } from "./services/authProvider.jsx";
+import { useAuth } from "./services/useAuth.js";
+import { LoginForm } from "./loginForm.jsx";
+import { ProtectedRoute } from "./protectedRoute.jsx";
+
+import { DetallePlaceHolder } from "./DetallePlaceHolder.jsx";
+import { PlaceHolder } from './placeHolder.jsx'
 import { PlaceHolderList } from './placeHolderList.jsx'
 import { PlaceHolderCreate } from './placeHolderCreate.jsx'
 import { PlaceHolderUpdate } from './placeHolderUpdate.jsx'
 import { PlaceHolderDelete } from './placeHolderDelete.jsx'
+import { PlaceHolderFilter } from './placeHolderFilter.jsx'
+
+import { SearchTermBox } from './SearchTermBox.jsx'
+import { Catalogo } from './Catalogo.jsx'
+import { Calculadora } from "./Calculadora.jsx"
 import { CalculadoraGEslava } from './CalculadoraGEslava.jsx'
 import { FormularioGEslava } from './FormularioGEslava.jsx'
-import { PlaceHolderFilter } from './placeHolderFilter.jsx'
 import { MiniCatalogoGEslava } from './MiniCatalogoGEslava.jsx'
 
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { ProductList, GetAllProducts} from "./ProductList"
+import { allProducts } from './productosMock.js'
+
 import { ListaProductos } from "./ListaProductos.jsx";
 import { DetalleProducto } from "./DetalleProducto.jsx";
 import { NoEncontrado404 } from "./NoEncontrado404.jsx";
 import { DummyJson } from "./DummyJson.jsx";
 
+import { UseEffectSinArreglo } from './UseEffectSinArreglo.jsx'
+import { UseEffectArregloVacio } from './UseEffectArregloVacio.jsx'
+import { UseEffectVariables } from './UseEffectVariables.jsx'
+import { UseEffectCleanup } from './UseEffectCleanup.jsx'
 
-function App() {
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+
+function HomePage() {
   const [count, setCount] = useState(0);
-  const [saludo, setSaludo] = useState(" Escribe tu nombre en la caja de texto");
+  const [saludo, setSaludo] = useState("hola desconocido");
 
   return (
-    <>
-      {/* El componente BrowserRouter envuelve toda la aplicación y permite la navegación entre páginas sin recargar todo el documento. */}
-      <BrowserRouter>
-        <section id="center">
-          <h3>get</h3>
-          <PlaceHolder />
+    <div className="home-page">
 
-          <h3>list</h3>
-          <PlaceHolderList />
+      <header className="home-hero">
+        <span className="eyebrow">Panel privado</span>
+        <h3>Explora tu aplicación</h3>
+        <p>Navega por las herramientas disponibles.</p>
+      </header>
 
-          <h3>create</h3>
-          <PlaceHolderCreate />
+      <section className="dashboard-grid">
 
-          <h3>update</h3>
-          <PlaceHolderUpdate />
+        <article className="glass-card search-card">
+          <h2>Búsqueda</h2>
+          <SearchTermBox />
+        </article>
 
-          <h3>delete</h3>
-          <PlaceHolderDelete />
-
-          <h3>filter</h3>
-          <PlaceHolderFilter />
-
-          <div>
-            <hr />
-            <h2>Ejercicio: Mini-Catálogo de Productos </h2>
-            <h3>Utiliza: useState - useEffect - filtros </h3>
-            <hr />
-            <MiniCatalogoGEslava />
-          </div>
-
-          <div>
-            <h1>Mi aplicación React</h1>
-
-            {/*Routes agrupa las rutas de la aplicación.*/}
-            <Routes> 
-
-              {/* Route-Define una dirección y el componente que debe mostrar. */}
-              <Route
-                path="/catalogo"
-                element={<ListaProductos />}
-              />
-
-              {/* Ruta para mostrar el detalle */}
-              <Route
-                path="/catalogo/:id"
-                element={<DetalleProducto />}
-              />
-
-              {/* Ruta para cualquier dirección no definida */}
-              <Route
-                path="*"
-                element={<NoEncontrado404 />}
-              />
-
-            </Routes>
-          </div>
-
-        <h3>Integración con API Externa- Capa de servicios conectada a DummyJSON sin modificar componentes</h3>
-        <DummyJson />
-
-
-
-          <div className="hero">
-            <img src={heroImg} className="base" width="170" height="179" alt="" />
-            <img src={reactLogo} className="framework" alt="React logo" />
-            <img src={viteLogo} className="vite" alt="Vite logo" />
-          </div>
-
-          <div>
-            <h1>Get started</h1>
-            <h3>Call Api search</h3>
-            <SearchTermBox />
-            <p>
-              Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-            </p>
-            <UseEffectSinArreglo />
-            <UseEffectArregloVacio />
-            <UseEffectVariables />
-            <UseEffectCleanup />
-
-            <ProductList products={allProducts} />
-
-            <h4>Lista con opción a ordenar por atributo:</h4>
-            <GetAllProducts products={allProducts} />
-
-          </div>
-
-          <hr />
+        <article className="glass-card">
+          <h2>Calculadora</h2>
           <Calculadora />
+        </article>
 
-          <hr />
-          <h3>Mi versión de calculadora</h3>
-          <CalculadoraGEslava />
-          <hr />
+        <article className="examplesUseEffect">
+          <h4>Ejemplos de useEffect y ciclo de vida</h4>
+          <UseEffectSinArreglo />
+          <UseEffectArregloVacio />
+          <UseEffectVariables />
+          <UseEffectCleanup />
+        </article>
 
-          <hr />
-          <label>Count is:  {count}</label>
-          <button
-            type="button"
-            className="counter"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            +
-          </button>
-          <button
-            type="button"
-            className="counter"
-            onClick={() => setCount((count) => count - 1)}
-          >
-            -
-          </button>
-          <button
-            type="button"
-            className="counter"
-            onClick={() => setCount(() => 0)}
-          >
-            {" "}
-            reset
-          </button>
+        <article className="glass-card counter-card">
+          <h2>Contador</h2>
+          <strong className="counter-value">{count}</strong>
 
+          <div className="counter-actions">
+            <button type="button" onClick={() => setCount(v => v + 1)}>
+              +
+            </button>
+            <button type="button" onClick={() => setCount(v => v - 1)}>
+              -
+            </button>
+            <button type="button" onClick={() => setCount(0)}>
+              Reset
+            </button>
+          </div>
+        </article>
 
+        <article className="glass-card">
+          <h2>Saludo</h2>
           <input
-            onInput={(evt) => {
-              setSaludo(evt.target.value);
-            }}
-          ></input>
-          <h4>¡Hola {saludo}!</h4>
-          <div className="ticks"></div>
+            value={saludo}
+            onChange={e => setSaludo(e.target.value)}
+          />
+          <h4>{saludo}</h4>
+        </article>
 
-          <div>
-            <hr />
-            <h2>Ejercicio: Carga Asíncrona </h2>
-            <h3>Utiliza: useEffect - función setTimeout() </h3>
-            <hr />
-            <Catalogo products={allProducts} />
-          </div>
+      </section>
 
-          <FormularioGEslava />
+      <section>
+        <h2>Ejercicios con PlaceHolder</h2>
+        <PlaceHolder />
+        <PlaceHolderList />
+        <PlaceHolderCreate />
+        <PlaceHolderUpdate />
+        <PlaceHolderDelete />
+        <PlaceHolderFilter />
+      </section>
 
+      <section>
+        <h2>Búsqueda y productos</h2>
+        <ProductList products={allProducts} />
+        <GetAllProducts products={allProducts} />
+      </section>
 
+      <section>
+        <h2>Catálogo CRUD</h2>
+        <Catalogo products={allProducts} />
+      </section>
 
-        </section>
+      <section>
+        <h2>Mis proyectos</h2>
+        <MiniCatalogoGEslava />
+        <CalculadoraGEslava />
+        <FormularioGEslava />
+      </section>
 
+      <section>
+        <h2>Consultas con DummyJSON</h2>
+        <DummyJson />
+      </section>
 
+      <section id="next-steps">
+        <div id="docs">
+          <h2>Documentación</h2>
+          <ul>
+            <li>
+              <a href="https://vite.dev/" target="_blank" rel="noreferrer">
+                <img className="logo" src={viteLogo} alt="" />
+                Explore Vite
+              </a>
+            </li>
+            <li>
+              <a href="https://react.dev/" target="_blank" rel="noreferrer">
+                <img className="button-icon" src={reactLogo} alt="" />
+                Learn more
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-        <section id="next-steps">
-          <div id="docs">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#documentation-icon"></use>
-            </svg>
-            <h2>Documentation</h2>
-            <p>Your questions, answered</p>
-            <ul>
-              <li>
-                <a href="https://vite.dev/" target="_blank">
-                  <img className="logo" src={viteLogo} alt="" />
-                  Explore Vite
-                </a>
-              </li>
-              <li>
-                <a href="https://react.dev/" target="_blank">
-                  <img className="button-icon" src={reactLogo} alt="" />
-                  Learn more
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div id="social">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#social-icon"></use>
-            </svg>
-            <h2>Connect with us</h2>
-            <p>Join the Vite community</p>
-            <ul>
-              <li>
-                <a href="https://github.com/vitejs/vite" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#github-icon"></use>
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://chat.vite.dev/" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#discord-icon"></use>
-                  </svg>
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/vite_js" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#x-icon"></use>
-                  </svg>
-                  X.com
-                </a>
-              </li>
-              <li>
-                <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#bluesky-icon"></use>
-                  </svg>
-                  Bluesky
-                </a>
-              </li>
-            </ul>
-          </div>
-
-
-        </section>
-
-        <div className="ticks"></div>
-        <section id="spacer"></section>
-
-      </BrowserRouter>
-    </>
+    </div>
   );
 }
+  
+function AppShell() {
+  const { user, status, logout } = useAuth();
 
+  if (status === "loading") {
+    return <p>Verificando sesión...</p>;
+  }
+
+  if (status !== "authenticated") {
+    return <LoginForm />;
+  }
+
+  async function handleLogout() {
+    await logout();
+  }
+
+  return (
+    <div className="app-shell">
+
+      <input className="menu-toggle" type="checkbox" id="menu-toggle" />
+
+      <header className="topbar">
+        <div className="brand-wrap">
+          <label className="sandwich" htmlFor="menu-toggle">
+            <span />
+            <span />
+            <span />
+          </label>
+
+          <Link className="brand" to="/">
+            ReactCurso
+          </Link>
+        </div>
+
+        <div className="topbar-user">
+          <span className="avatar">
+            {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+          </span>
+
+          <span className="user-name">
+            {user?.name || user?.email}
+          </span>
+
+          <button
+            type="button"
+            className="logout-button"
+            onClick={handleLogout}
+          >
+            Salir
+          </button>
+        </div>
+      </header>
+
+      <nav className="side-menu" aria-label="Navegación principal">
+        <div className="side-menu-inner">
+          <span className="menu-label">Explorar</span>
+          <Link to="/">Inicio</Link>
+          <Link to="/catalogo">Catálogo</Link>
+          <Link to="/placeholderdetalle/1">Detalle PlaceHolder</Link>
+        </div>
+      </nav>
+
+      <label className="menu-backdrop" htmlFor="menu-toggle" />
+
+      <main className="app-content">
+        <Routes>
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/catalogo"
+            element={
+              <ProtectedRoute>
+                <ListaProductos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/catalogo/:id"
+            element={
+              <ProtectedRoute>
+                <DetalleProducto />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/placeholderdetalle/:id"
+            element={
+              <ProtectedRoute>
+                <DetallePlaceHolder />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<Navigate to="/" replace />} />
+
+          <Route path="*" element={<NoEncontrado404 />} />
+
+        </Routes>
+      </main>
+
+    </div>
+  );
+}
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
+    </BrowserRouter>
+  );
+}
 export default App;
