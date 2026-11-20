@@ -1,5 +1,6 @@
 import "./App.css";
 
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import { MetodoGet } from "./components/placeholder/MetodoGet";
@@ -20,6 +21,8 @@ import { DetallePlaceHolder } from "./DetallePlaceHolder";
 
 function AppShell() {
   const { user, status, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [httpMenuOpen, setHttpMenuOpen] = useState(false);
 
   if (status === "loading") {
     return (
@@ -38,29 +41,110 @@ function AppShell() {
     await logout();
   }
 
-  return (
-    <>
-      <header>
-        <span>Usuario: {user?.name || user?.email}</span>
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
-        <button type="button" onClick={handleLogout}>
-          Cerrar sesión
+  return (
+    <div className="app-shell">
+      <header className="topbar">
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label="Abrir o cerrar menú"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span className="sandwich" />
+          <span className="sandwich" />
+          <span className="sandwich" />
         </button>
+
+        <div className="brand-wrap">
+          <strong>ReactCurso</strong>
+        </div>
+
+        <div className="topbar-user">
+          <span className="avatar" aria-hidden="true">
+            {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+          </span>
+
+          <span className="user-name">{user?.name || user?.email}</span>
+
+          <button
+            type="button"
+            className="logout-button"
+            onClick={handleLogout}
+          >
+            Cerrar sesión
+          </button>
+        </div>
       </header>
 
-      <nav>
-        <Link to="/">Home</Link>
-        <h2>JSONPlaceholder - Métodos HTTP</h2>
-        <Link to="/placeholder">GET</Link>
-        <Link to="/placeholderdetalle/6">GET por ID</Link>
-        <Link to="/placeholderlist">LIST</Link>
-        <Link to="/placeholdercreate">CREATE</Link>
-        <Link to="/placeholderupdate">UPDATE</Link>
-        <Link to="/placeholderdelete">DELETE</Link>
-        <Link to="/placeholderfilter/1">FILTER</Link>
-      </nav>
+      <aside className={`side-menu ${menuOpen ? "is-open" : ""}`}>
+        <nav aria-label="Navegación principal">
+          <Link to="/" onClick={closeMenu}>
+            Inicio
+          </Link>
 
-      <main>
+          <Link to="/detalle/4" onClick={closeMenu}>
+            Detalle
+          </Link>
+
+          <button
+            type="button"
+            className="side-menu-section"
+            aria-expanded={httpMenuOpen}
+            onClick={() => setHttpMenuOpen((open) => !open)}
+          >
+            <span>Métodos HTTP</span>
+            <span aria-hidden="true">{httpMenuOpen ? "−" : "+"}</span>
+          </button>
+
+          {httpMenuOpen && (
+            <div className="side-menu-submenu">
+              <Link to="/placeholder" onClick={closeMenu}>
+                GET
+              </Link>
+
+              <Link to="/placeholderdetalle/6" onClick={closeMenu}>
+                GET por ID
+              </Link>
+
+              <Link to="/placeholderlist" onClick={closeMenu}>
+                LIST
+              </Link>
+
+              <Link to="/placeholdercreate" onClick={closeMenu}>
+                CREATE
+              </Link>
+
+              <Link to="/placeholderupdate" onClick={closeMenu}>
+                UPDATE
+              </Link>
+
+              <Link to="/placeholderdelete" onClick={closeMenu}>
+                DELETE
+              </Link>
+
+              <Link to="/placeholderfilter/1" onClick={closeMenu}>
+                FILTER
+              </Link>
+            </div>
+          )}
+        </nav>
+      </aside>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="menu-backdrop"
+          aria-label="Cerrar menú"
+          onClick={closeMenu}
+        />
+      )}
+
+      <main className="app-content">
         <Routes>
           <Route
             path="/"
@@ -147,7 +231,7 @@ function AppShell() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-    </>
+    </div>
   );
 }
 
