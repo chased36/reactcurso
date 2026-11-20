@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function ProductForm({ productoAEditar, onSave, onCancel }) {
   let productoNuevo = {
@@ -11,26 +11,13 @@ export function ProductForm({ productoAEditar, onSave, onCancel }) {
 
   const [formData, setFormData] = useState(productoAEditar || productoNuevo);
 
-  // Si le Pasamos un Producto para Editar, estaríamos Cargando sus Datos en el Estado de Nuestro Form Local
-  {
-    /*
-  useEffect(() => {
-    if (productoAEditar) {
-      setFormData(productoAEditar);
-    } else {
-      setFormData(productoNuevo);
-    }
-  }, [productoAEditar]);
-  */
-  }
-
   const handleChange = (evt) => {
     const { name, value, type, checked } = evt.target;
 
     setFormData((prevData) => ({
       // ... spread
       ...prevData,
-      [name]: type == "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -38,8 +25,8 @@ export function ProductForm({ productoAEditar, onSave, onCancel }) {
     evt.preventDefault();
     onSave({
       ...formData,
-      precio: formData.precio,
-      //stock: formData.stock,
+      precio: Number(formData.precio),
+      stock: Number(formData.stock),
     });
   };
 
@@ -57,7 +44,13 @@ export function ProductForm({ productoAEditar, onSave, onCancel }) {
           <div className="msf-panel msf-panel-1">
             <h3>Información del Producto</h3>
             <h3>{productoAEditar ? "Editar Producto" : "Nuevo Producto"}</h3>
-            <input type="text" name="id" placeholder="ID" value={formData.id} />
+            <input
+              type="text"
+              name="id"
+              placeholder="ID"
+              value={formData.id}
+              readOnly
+            />
             <input
               type="text"
               name="nombre"
@@ -76,12 +69,14 @@ export function ProductForm({ productoAEditar, onSave, onCancel }) {
               type="text"
               name="stock"
               placeholder="stock"
+              onChange={handleChange}
               value={formData.stock}
             />
             <input
               type="text"
-              name="category"
+              name="categoria"
               placeholder="categoría"
+              onChange={handleChange}
               value={formData.categoria}
             />
             <div className="msf-actions">
