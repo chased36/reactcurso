@@ -10,5 +10,8 @@ export const clients = {
   jsonplaceholder: new HttpClient(
     import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "/api",
   ),
+  dummyjson: new HttpClient(
+    import.meta.env.VITE_API_URL_DUMMYJSON ?? "https://dummyjson.com",
+  ),
   auth: new HttpClient(import.meta.env.VITE_API_AUTH ?? "/api"),
 };

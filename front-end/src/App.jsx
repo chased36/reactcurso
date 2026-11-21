@@ -18,6 +18,9 @@ import { ProtectedRoute } from "./protectedRoute";
 
 import { Home } from "./Home";
 import { DetallePlaceHolder } from "./DetallePlaceHolder";
+import { MiniCatalogo } from "./entregables/mini-catalogo/MiniCatalogo";
+import { CatalogoRutas } from "./entregables/catalogo-rutas/CatalogoRutas";
+import { ProductosApi } from "./entregables/api-externa/ProductosApi";
 
 function AppShell() {
   const { user, status, logout } = useAuth();
@@ -91,6 +94,18 @@ function AppShell() {
             Detalle
           </Link>
 
+          <Link to="/mini-catalogo" onClick={closeMenu}>
+            Mini-Catálogo Estático
+          </Link>
+
+          <Link to="/catalogo-rutas" onClick={closeMenu}>
+            Catálogo con Rutas
+          </Link>
+
+          <Link to="/api-externa" onClick={closeMenu}>
+            Integración con API Externa
+          </Link>
+
           <button
             type="button"
             className="side-menu-section"
@@ -151,6 +166,33 @@ function AppShell() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/mini-catalogo"
+            element={
+              <ProtectedRoute>
+                <MiniCatalogo />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/catalogo-rutas/*"
+            element={
+              <ProtectedRoute>
+                <CatalogoRutas />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/api-externa"
+            element={
+              <ProtectedRoute>
+                <ProductosApi />
               </ProtectedRoute>
             }
           />
