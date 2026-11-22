@@ -17,8 +17,9 @@ export function DetallePlaceHolder() {
 
   return (
     <>
-      <p>{data.id}</p>
-      <p>{data.title}</p>
+      <p><strong>ID:</strong> {data.id}</p>
+      <p><strong>Título:</strong> {data.title}</p>
+      <p><strong>Descripción:</strong> {data.description ?? data.body}</p>
     </>
   );
 }

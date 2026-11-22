@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { PlaceHolderServices, PlaceHolderServicesUpdate } from "./services/searchServicePlaceHolder";
+import {
+  PlaceHolderServices,
+  PlaceHolderServicesUpdate,
+} from "./services/searchServicePlaceHolder";
 import { ErrorPanel } from "./components/ErrorPanel";
 
 export function PlaceHolderUpdate() {
   const [form, setForm] = useState({
     id: "",
     title: "",
-    body: "",
-    userId: "",
+    description: "",
   });
 
   const [data, setData] = useState(null);
@@ -31,13 +33,12 @@ export function PlaceHolderUpdate() {
       setLoading(true);
       const res = await PlaceHolderServices.get(id, controller.signal);
       const post = res?.data ?? res;
-      
+
       if (post && post.title) {
         setForm((prev) => ({
           ...prev,
           title: post.title ?? "",
-          body: post.body ?? "",
-          userId: post.userId ?? "",
+          description: post.description ?? "",
         }));
       }
     } catch (err) {
@@ -54,16 +55,17 @@ export function PlaceHolderUpdate() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const payload = {
-        id: Number(form.id),
         title: form.title,
-        body: form.body,
-        userId: Number(form.userId),
+        description: form.description,
       };
 
-      // Enviamos la petición 
-      const res = await PlaceHolderServicesUpdate.update(form.id, payload, controller.signal);
+      const res = await PlaceHolderServicesUpdate.update(
+        form.id,
+        payload,
+        controller.signal,
+      );
       
       setData(res?.data ?? res);
     } catch (err) {
@@ -78,38 +80,39 @@ export function PlaceHolderUpdate() {
   return (
     <div style={{ padding: "20px", maxWidth: "400px" }}>
       <h2>Actualizar Post</h2>
-      
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
-        <input 
-          type="number" 
-          name="id" 
-          placeholder="ID del Post a actualizar" 
-          value={form.id} 
+
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          marginBottom: "20px",
+        }}
+      >
+        <input
+          type="number"
+          name="id"
+          placeholder="ID del Post a actualizar"
+          value={form.id}
           onChange={handleChange}
           onBlur={handleBlurId} // Busca y autocompleta al salir del campo ID
         />
-        <input 
-          type="text" 
-          name="title" 
-          placeholder="Escribe el nuevo título..." 
-          value={form.title} 
-          onChange={handleChange} 
+        <input
+          type="text"
+          name="title"
+          placeholder="Escribe el nuevo título..."
+          value={form.title}
+          onChange={handleChange}
         />
-        <input 
-          type="text" 
-          name="body" 
-          placeholder="Escribe el nuevo contenido..." 
-          value={form.body} 
-          onChange={handleChange} 
+        <input
+          type="text"
+          name="description"
+          placeholder="Escribe la nueva descripción..."
+          value={form.description}
+          onChange={handleChange}
         />
-        <input 
-          type="number" 
-          name="userId" 
-          placeholder="User ID" 
-          value={form.userId} 
-          onChange={handleChange} 
-        />
-        
+
         <button type="submit" disabled={loading}>
           {loading ? "⏳ Procesando..." : "Actualizar Post"}
         </button>
@@ -118,12 +121,23 @@ export function PlaceHolderUpdate() {
       {error && <ErrorPanel error={error} />}
 
       {data && (
-        <div style={{ background: "#f9f9f9", padding: "10px", borderRadius: "5px" }}>
+        <div
+          style={{
+            background: "#f9f9f9",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+        >
           <h3>Resultado Actualizado:</h3>
-          <p><strong>ID:</strong> {data.id}</p>
-          <p><strong>Título:</strong> {data.title}</p>
-          <p><strong>Body:</strong> {data.body}</p>
-          <p><strong>User ID:</strong> {data.userId}</p>
+          <p>
+            <strong>ID:</strong> {data.id}
+          </p>
+          <p>
+            <strong>Título:</strong> {data.title}
+          </p>
+          <p>
+            <strong>Descripción:</strong> {data.description ?? data.body}
+          </p>
         </div>
       )}
     </div>

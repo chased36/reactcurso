@@ -10,13 +10,17 @@ export function PlaceHolderList() {
 
   if (loading) return <p>⏳ Buscando...</p>;
   if (error) return <ErrorPanel error={error} onRetry={recargar} />;
-  if (!data?.length) return <p>Sin resultados.</p>;
+  const productos = Array.isArray(data)
+    ? data
+    : data?.products ?? [];
+
+  if (!productos.length) return <p>Sin resultados.</p>;
 
   return (
     <>
-      {data.map((post) => (
+      {productos.map((producto) => (
         <div
-          key={post.id}
+          key={producto.id}
           style={{
             marginBottom: "1rem",
             borderBottom: "1px solid #ccc",
@@ -24,10 +28,10 @@ export function PlaceHolderList() {
           }}
         >
           <p>
-            <strong>ID:</strong> {post.id}
+            <strong>ID:</strong> {producto.id}
           </p>
           <p>
-            <strong>Título:</strong> {post.title}
+            <strong>Producto:</strong> {producto.title}
           </p>
         </div>
       ))}

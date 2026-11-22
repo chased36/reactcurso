@@ -10,37 +10,50 @@ import { clients } from "./clients";
 // };
 
 export const PlaceHolderServices = {
-  async get(signal) {
-    const res = await clients.search.get(`/posts/1`, { signal });
+  async get(id = 1, signal) {
+    if (typeof id !== "number" && typeof id === "object") {
+      signal = id;
+      id = 1;
+    }
+
+    const res = await clients.dummyjson.get(`/products/${id}`, { signal });
     return res;
   },
 };
 
 export const PlaceHolderServicesList = {
- 
   async get(signal) {
-    const res = await clients.search.get("/posts", { signal });
-    return res;
+    const res = await clients.dummyjson.get(`/products`, { signal });
+    return res.products; 
   },
 };
 
 export const PlaceHolderServicesCreate = {
-  async create(nuevoPost, signal) {
-    const res = await clients.search.post("/posts", nuevoPost, { signal });
-    return res;
+  async create(nuevoProducto, signal) {
+    const payload = {
+      title: nuevoProducto.title,
+      description: nuevoProducto.description ?? "",
+    };
+
+    return await clients.dummyjson.post("/products/add", payload, { signal });
   },
 };
 
 export const PlaceHolderServicesUpdate = {
   async update(id, postData, signal) {
-    const res = await clients.search.put(`/posts/${id}`, postData, { signal });
+    const payload = {
+      title: postData.title,
+      description: postData.description ?? "",
+    };
+
+    const res = await clients.dummyjson.put(`/products/${id}`, payload, { signal });
     return res;
   },
 };
 
 export const PlaceHolderServicesDelete = {
   async remove(id, signal) {
-    const res = await clients.search.delete(`/posts/${id}`, { signal });
+    const res = await clients.dummyjson.delete(`/products/${id}`, { signal });
     return res;
   },
 };
