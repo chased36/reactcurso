@@ -28,7 +28,7 @@ export const searchService = {
       "/search",
       { query },                                 // body (el cliente hace JSON.stringify)
       {
-        headers: { "X-API-Key": "diplomado-unam-26" },
+        headers: { "X-API-Key": "diplomado-unam-26" }, //bearer token for API authentication
         signal,
       }
     );
