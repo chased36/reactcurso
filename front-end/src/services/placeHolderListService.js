@@ -17,7 +17,7 @@ export const placeHolderListServices = {
   //Consulta una lista de elementos
   async getList(signal) {
     const res = await clients.jsonplaceholder.get(
-      "/posts?_limit=5",
+      "/posts",
       { signal }
     );
     const data = responseUnpack(res);

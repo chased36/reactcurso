@@ -29,7 +29,7 @@ import { CalculadoraGEslava } from './CalculadoraGEslava.jsx'
 import { FormularioGEslava } from './FormularioGEslava.jsx'
 import { MiniCatalogoGEslava } from './MiniCatalogoGEslava.jsx'
 
-import { ProductList, GetAllProducts} from "./ProductList"
+import { ProductList, GetAllProducts } from "./ProductList"
 import { allProducts } from './productosMock.js'
 
 import { ListaProductos } from "./ListaProductos.jsx";
@@ -105,17 +105,6 @@ function HomePage() {
         </article>
 
       </section>
-
-      <section>
-        <h2>Ejercicios con PlaceHolder</h2>
-        <PlaceHolder />
-        <PlaceHolderList />
-        <PlaceHolderCreate />
-        <PlaceHolderUpdate />
-        <PlaceHolderDelete />
-        <PlaceHolderFilter />
-      </section>
-
       <section>
         <h2>Búsqueda y productos</h2>
         <ProductList products={allProducts} />
@@ -132,11 +121,6 @@ function HomePage() {
         <MiniCatalogoGEslava />
         <CalculadoraGEslava />
         <FormularioGEslava />
-      </section>
-
-      <section>
-        <h2>Consultas con DummyJSON</h2>
-        <DummyJson />
       </section>
 
       <section id="next-steps">
@@ -162,7 +146,7 @@ function HomePage() {
     </div>
   );
 }
-  
+
 function AppShell() {
   const { user, status, logout } = useAuth();
 
@@ -221,6 +205,8 @@ function AppShell() {
           <Link to="/">Inicio</Link>
           <Link to="/catalogo">Catálogo</Link>
           <Link to="/placeholderdetalle/1">Detalle PlaceHolder</Link>
+          <Link to="/placeholderCRUD">PlaceHolder CRUD</Link>
+          <Link to="/dummyJsonCRUD">DummyJson CRUD</Link>
         </div>
       </nav>
 
@@ -264,6 +250,22 @@ function AppShell() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/placeholderCRUD"
+            element={
+              <ProtectedRoute>
+                <PlaceHolderPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dummyJsonCRUD"
+            element={
+              <ProtectedRoute>
+                <DummyJsonPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/login" element={<Navigate to="/" replace />} />
 
@@ -275,6 +277,58 @@ function AppShell() {
     </div>
   );
 }
+export function PlaceHolderPage() {
+  return (
+    <section>
+      <h2>CRUD con PlaceHolder</h2>
+
+      <article className="glass-card">
+        <h3>get</h3>
+        <PlaceHolder />
+      </article>
+      <br></br>
+
+      <article className="glass-card">
+        <h3>list</h3>
+        <PlaceHolderList />
+      </article>
+      <br></br>
+
+      <article className="glass-card">
+        <h3>create</h3>
+        <PlaceHolderCreate />
+      </article>
+      <br></br>
+
+      <article className="glass-card">
+        <h3>update</h3>
+        <PlaceHolderUpdate />
+      </article>
+      <br></br>
+
+      <article className="glass-card">
+        <h3>delete</h3>
+        <PlaceHolderDelete />
+      </article>
+      <br></br>
+
+      <article className="glass-card">
+        <h3>filter</h3>
+        <PlaceHolderFilter />
+      </article>
+      <br></br>
+    </section>
+  );
+}
+export function DummyJsonPage() {
+  return (
+    <section>
+      <h2> CRUD con DummyJSON </h2>
+      <DummyJson />
+    </section>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -284,4 +338,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
 export default App;

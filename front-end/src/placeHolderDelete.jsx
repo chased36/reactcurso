@@ -46,7 +46,7 @@ export function PlaceHolderDelete() {
         <div>
 
             <h2>***** Eliminar una publicación ***** </h2>
-            <hr />
+           
             <form onSubmit={handleSubmit}>
                 <label>
                     ID:

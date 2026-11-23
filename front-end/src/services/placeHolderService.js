@@ -1,7 +1,11 @@
 import { clients } from "./clients";
 
 // Normaliza la respuesta para que la UI siempre reciba el mismo formato
-const normalize = (r,index) => ({
+const normalize = (r) => ({
+  id: r.id,
+  titulo: r.title,
+  contenido: r.body,
+  usuarioId: r.userId,
   
 });
 
@@ -10,9 +14,9 @@ const responseUnpack = (res) => {
 };
 
 export const placeHolderServices = {
-  async get(query, signal) {
+  async get(id = 4, signal) {
     const res = await clients.jsonplaceholder.get(
-       `/posts/${id} `,
+       `/posts/${id}`,
       {signal },
       
     );

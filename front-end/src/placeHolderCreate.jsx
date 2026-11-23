@@ -5,7 +5,7 @@ export function PlaceHolderCreate() {
 
     //Consultar una lista de elementos
     const [formData, setFormData] = useState({
-        userId: 1,
+        userId: 0,
         title: "",
         body: ""
     });
@@ -114,6 +114,7 @@ export function PlaceHolderCreate() {
             {resultado && (
                 <div>
                     <h3>Publicación creada correctamente</h3>
+                    <h3 style={{ color: "green" }}>Respuesta del Servidor</h3>
                     <p>ID: {resultado.id}</p>
                     <p>Usuario: {resultado.userId}</p>
                     <p>Título: {resultado.title}</p>

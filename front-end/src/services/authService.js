@@ -1,4 +1,4 @@
-import { clients } from "./clients";
+/*import { clients } from "./clients";
 
 const configuredToken = import.meta.env.VITE_AUTH_TOKEN;
 const configuredScheme = import.meta.env.VITE_AUTH_SCHEME || "Bearer";
@@ -48,5 +48,38 @@ export const authService = {
   async logout(signal) {
     void signal;
     clients.auth.setAccessToken(null);
+  },
+};*/
+export const authService = {
+  async login({ email, password }) {
+    // Validación básica de demostración
+    if (!email || !password) {
+      throw new Error("Debes ingresar correo y contraseña");
+    }
+
+    return {
+      authenticated: true,
+      user: {
+        email,
+        name: email.split("@")[0],
+      },
+    };
+  },
+
+  async getProfile() {
+    return {
+      email: "usuario@demo.local",
+      name: "Usuario de demostración",
+    };
+  },
+
+  async refresh() {
+    return {
+      authenticated: true,
+    };
+  },
+
+  async logout() {
+    return true;
   },
 };

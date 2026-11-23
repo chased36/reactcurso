@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { placeHolderUpdateServices } from "./services/placeHolderUpdateService";
 
+
+const normalize = (r) => ({
+    id: r.id ?? 0,
+    userId: r.userId ?? 0,
+    title: r.title ?? "",
+    body: r.body ?? "",
+});
+
 export function PlaceHolderUpdate() {
     const [formData, setFormData] = useState({
         id: 1,
@@ -11,7 +19,30 @@ export function PlaceHolderUpdate() {
 
     const [resultado, setResultado] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
+
+    const cargarPost = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            const post = await placeHolderUpdateServices.getById(
+                formData.id
+            );
+
+            setFormData({
+                id: post.id,
+                userId: post.userId,
+                title: post.title,
+                body: post.body,
+            });
+        } catch (err) {
+            setError("No se pudo cargar la publicación");
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     //Capturar los datos en los inputs del formulario
     const handleChange = (e) => {
@@ -22,7 +53,7 @@ export function PlaceHolderUpdate() {
                 ? Number(value)
                 : value
         }));
-    }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -45,8 +76,7 @@ export function PlaceHolderUpdate() {
                     userId: formData.userId,
                     title: formData.title,
                     body: formData.body
-                },
-
+                }
             );
             console.log("Respuesta del servidor:", res);
             setResultado(res);
@@ -59,9 +89,7 @@ export function PlaceHolderUpdate() {
     };
     return (
         <div>
-
             <h2>Actualizar una publicación</h2>
-            <hr />
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="id">ID:</label>
@@ -71,8 +99,15 @@ export function PlaceHolderUpdate() {
                         name="id"
                         value={formData.id}
                         onChange={handleChange}
+                        onBlur={cargarPost}
                         required
                     />
+                    <button
+                        type="button"
+                        onClick={cargarPost}
+                    >
+                        Buscar
+                    </button>
                 </div>
                 <div>
                     <label htmlFor="userId">Usuario:</label>
@@ -87,7 +122,7 @@ export function PlaceHolderUpdate() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="title">Titulo:</label>
+                    <label htmlFor="title">Título:</label>
                     <input
                         type="text"
                         id="title"
@@ -116,7 +151,9 @@ export function PlaceHolderUpdate() {
             </form>
 
             {error && (
-                <p style={{ color: "red" }}>{error}</p>
+                <p style={{ color: "red" }}>
+                    {error}
+                </p>
             )}
             {resultado && (
                 <div>

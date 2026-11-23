@@ -5,11 +5,15 @@ import { ErrorPanel } from "./components/ErrorPanel";
 
 export function PlaceHolder() {
   const { data, loading, error, recargar } = useAsync(
-    (signal) => placeHolderServices.get(4,signal),
+    async (signal) =>{
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      return placeHolderServices.get(4,signal);
+    },
     []
   );
 
-  if (loading) return <p>⏳ Buscando...</p>;
+  if (loading) 
+    return <p>⏳ Buscando...</p>;
 
   if (error) {
     return (
@@ -26,6 +30,7 @@ export function PlaceHolder() {
   return(
     <div>
         <p>
+            <h3 color="green">Respuesta del servidor</h3>
             {data.id}
             <br></br>
             {data.title}

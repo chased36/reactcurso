@@ -10,7 +10,7 @@ export const clients = {
     import.meta.env.VITE_API_URL_ELCRIS    ?? "/api"),
 
   jsonplaceholder:   new HttpClient(
-    import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "/api"),
+    import.meta.env.VITE_API_URL_TEST_JSONPLACEHOLDER ?? "https://jsonplaceholder.typicode.com"),
 
   dummyjson: new HttpClient(
     import.meta.env.VITE_API_URL_DUMMYJSON),

@@ -14,9 +14,9 @@ const normalize = (r, index) => ({
 export const dummyJsonProductsService = {
 
     // 1. get: Obtener la lista de productos
-    async getListFiltered({ limit = 10, skip = 0, signal }={}){
+    async getListFiltered({signal }={}){
         const res = await clients.dummyjson.get(
-            `/products?limit=${limit}&skip=${skip}`,
+            `/products`,
             { signal }
         );
         const data=  Array.isArray(res.products) ? res.products : [];
