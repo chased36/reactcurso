@@ -1,32 +1,18 @@
-import { clients } from './clients'; // ⬅️ respeta el case exacto del archivo/** Normaliza un resultado de búsqueda al shape que consume la UI */
+import { clients } from './clients'; // ⬅️ respeta el case exacto del archivo
 
-const normalize = (r, index) => ({
-  id: r.id,
-  title: r.title,
-  body: r.body,
-  userId: r.userId,
-});
+/** Normaliza un resultado de búsqueda al shape que consume la UI
+ * payload - normalize
+ */
+const normalize = (r, index) => ({});
 
-/** Acepta array directo o envoltorios comunes: { data } / { results } / { items } */
 const responseUnpack = (res) => {
-  //   if (Array.isArray(res)) res?.data ?? res?.results ?? res?.items ?? [];
-  const data = res?.data ?? res;
-
-  if (Array.isArray(data)) return data;
-
-  return res ?? data?.results ?? data?.items ?? [];
+  return res ?? {};
 };
 
-export const placeHolderService = {
+export const placeHolderServices = {
   async get(id, signal) {
-    // haciendo una nueva instancia
-    const resGet = await clients.jsonPlaceHolder.get(`/posts/${id}`, {});
-    // const resList = await clients.jsonPlaceHolder.get('/posts', {});
-    return responseUnpack(resGet);
-  },
+    const res = await clients.jsonplaceholder.get(`/posts/${id}`, {});
 
-  async list(query, signal) {
-    const resList = await clients.jsonPlaceHolder.get('/posts', {});
-    return responseUnpack(resList).map(normalize);
+    return res;
   },
 };

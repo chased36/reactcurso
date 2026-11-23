@@ -1,13 +1,14 @@
 import { useAsync } from './hooks/useAsync';
 import { useParams } from 'react-router-dom';
-import { placeHolderService } from './services/placeHolderService';
+import { placeHolderServices } from './services/placeHolderService';
 import { ErrorPanel } from './components/ErrorPanel';
 
 export function DetallePlaceHolder() {
-  /*useParams retorna todo lo que venga en una URL */
   const { id } = useParams();
+
+  console.log(id);
   const { data, loading, error, recargar } = useAsync(
-    (signal) => placeHolderService.get(signal),
+    (signal) => placeHolderServices.get(id, signal),
     [id]
   );
 
