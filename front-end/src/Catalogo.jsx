@@ -62,13 +62,13 @@ export function Catalogo({ products }) {
           />
         )}
 
-        <div class="mag-btns">
+        <div className="mag-btns">
           <button
             onClick={() => {
               setproductSeleccionado(null)
               setShowForm(true)
             }}
-            class="mag-btn mag-btn-primary"
+            className="mag-btn mag-btn-primary"
           >
             Agregar Producto
           </button>

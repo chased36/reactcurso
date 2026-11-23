@@ -9,8 +9,8 @@ export function SearchProduct({ products }) {
 
   return (
     <>
-      <label>{name}</label>
-      <input id="searchProduct" onChange={(evt) => setName(evt.target.value)} />
+      {/* <label>{name}</label> */}
+      <input id="searchProduct" placeholder="Ingrese un nombre de producto" onChange={(evt) => setName(evt.target.value)} />
       <GetAllProducts products={filterProduct} />
     </>
   );
