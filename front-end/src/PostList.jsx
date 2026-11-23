@@ -1,4 +1,5 @@
 import { useAsync } from "./hooks/useAsync";
+import { Link } from "react-router-dom";
 import { jsonPlaceholderService } from "./services/jsonPlaceholderService";
 
 export function PostList() {
@@ -49,7 +50,7 @@ export function PostList() {
             <tr key={post.id}>
               <td>{post.id}</td>
               <td>{post.userId}</td>
-              <td>{post.title}</td>
+              <td><Link to={`/detalle/${post.id}`}>{post.title}</Link></td>
               <td>{post.body}</td>
             </tr>
           ))}

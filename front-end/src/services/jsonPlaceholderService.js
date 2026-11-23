@@ -8,9 +8,6 @@ const normalize = (post) => ({
   body: post.body,
 });
 
-// Devuelve la respuesta o un valor predeterminado.
-const responseUnpack = (res) => res ?? {};
-
 export const jsonPlaceholderService = {
   // GET: obtener una publicación por ID.
   async getById(id, signal) {

@@ -1,17 +1,27 @@
-import EditButton from "./assets/edit-note.svg"
-import DeleteButton from "./assets/delete-icon.svg"
-export function ProductItem({ id, producto, onEdit, onRemove }) {
+import { Link } from "react-router-dom";
+import EditButton from "./assets/edit-note.svg";
+import DeleteButton from "./assets/delete-icon.svg";
+
+export function ProductItem({ producto, index, onEditarProducto, onEliminarProducto, disabled }) {
   return (
-    <>             
-      <tr id={id} >
-        <td><img src={EditButton}  onClick={()=> onEdit(producto)} width={32} height={32} style={{ background: 'white', border: 'none', cursor: 'pointer' }}></img></td>
-        <td><img src={DeleteButton}  onClick={()=> { onRemove(id)}} width={32} height={32} style={{ background: 'white', border: 'none', cursor: 'pointer' }}></img></td>
-        {/* <button onClick={()=> onCallbackClick(true)} class="mag-btn mag-btn-sky">Actualizar Producto</button> */}
-        <td>{producto.nombre}</td>
-        <td>{producto.precio}</td>
-        <td>{producto.stock}</td>
-        <td>{producto.categoria}</td>
-      </tr>
-    </>
+    <tr>
+      {onEditarProducto && <td>
+        <button type="button" className="icon-btn" disabled={disabled}
+          aria-label={`Editar ${producto.nombre}`} onClick={() => onEditarProducto(producto)}>
+          <img src={EditButton} width={28} height={28} alt="" />
+        </button>
+      </td>}
+      {onEliminarProducto && <td>
+        <button type="button" className="icon-btn" disabled={disabled}
+          aria-label={`Eliminar ${producto.nombre}`} onClick={() => onEliminarProducto(producto.id)}>
+          <img src={DeleteButton} width={28} height={28} alt="" />
+        </button>
+      </td>}
+      <td>{index}</td>
+      <td><Link to={encodeURIComponent(producto.id)}>{producto.nombre}</Link></td>
+      <td>${producto.precio.toFixed(2)}</td>
+      <td>{producto.stock}</td>
+      <td>{producto.categoria}</td>
+    </tr>
   );
 }

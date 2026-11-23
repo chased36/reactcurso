@@ -1,94 +1,51 @@
-import { useEffect, useState } from "react";
-import "./form.css";
+import { useState } from "react";
 import { ProductForm } from "./ProductForm";
 import { GetAllProducts } from "./ProductList";
-export function Catalogo({ products }) {
-  //definir estado para productos, cargando
-  const [productos, setProductos] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+import { useCatalog } from "./hooks/catalogContext";
+import { ErrorPanel } from "./components/ErrorPanel";
+import "./form.css";
 
-  //controlar si el formulario esta siendo abierto y si estamos editando o creando
+export function Catalogo() {
+  const { products, title, description, saving, mutationError, saveProduct, removeProduct, clearError } = useCatalog();
   const [showForm, setShowForm] = useState(false);
-  const [productSeleccionado, setproductSeleccionado] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const categories = [...new Set(products.map((product) => product.categoria))];
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-      setProductos(products);
-    }, 2500);
-  }, []);
-
-  //crud -create, read, update, delete
-  const handlerSaveProduct = (nuevoOActualizado) => {
-    // update: reemplazar el producto seleccionado con el id
-    if (productSeleccionado) {
-      //reemplacemos el product que coincida con el id
-      setProductos(prev=> prev.map(p=> p.id == productSeleccionado.id? nuevoOActualizado: p))      
-    }
-    else{
-      // agrega un nuevo elemento
-      setProductos((prev) => [
-        ...prev,
-        { ...nuevoOActualizado, id: `p${Date.now()}` },
-      ]);
-    }
-
-    //cerrar formulario y limpiarlo
+  function closeForm() {
+    setSelected(null);
     setShowForm(false);
-    setproductSeleccionado(null);
-  };
-
-  const handlerRemoveProduct = (id) => {
-    // Elimine, filtre o saque de productos el id seleccionado
-    // podriamos eliminar con filter, o con slice
-    setProductos(prev => prev.filter(p=> p.id != id))
+    clearError();
   }
 
-  const handlerIniciarEdicion = (producto) => {    
-    setproductSeleccionado(producto);
-    setShowForm(true);
+  async function handleSave(product) {
+    if (await saveProduct(product, selected?.id)) closeForm();
+  }
+
+  function handleRemove(id) {
+    const product = products.find((item) => item.id === id);
+    if (window.confirm(`¿Estás seguro de eliminar "${product.nombre}"?`)) removeProduct(id);
   }
 
   return (
-    <>
-      <div>
-        {isLoading ? (
-          <h4>Cargando...</h4>
-        ) : (          
-          <GetAllProducts
-            products={productos}
-            onEdit = {handlerIniciarEdicion}
-            onRemove = {handlerRemoveProduct}
-          />
-        )}
-
-        <div class="mag-btns">
-          <button
-            onClick={() => {
-              setproductSeleccionado(null)
-              setShowForm(true)
-            }}
-            class="mag-btn mag-btn-primary"
-          >
-            Agregar Producto
-          </button>
-          {/* <button onClick={()=> setCanHandleForm(false)} class="mag-btn mag-btn-ghost">Eliminar Producto</button> */}
-        </div>
-
-        {showForm ? (
-          <ProductForm
-            key = {productSeleccionado ? productSeleccionado.id: ''}
-            productAEditar={productSeleccionado}
-            onSave={handlerSaveProduct}
-            onCancel={()=>{
-              setShowForm(false)
-              setproductSeleccionado(null)
-            }}
-          />
-        ) : (
-          ""
-        )}
-      </div>
-    </>
+    <section className="practice-stack">
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <button type="button" disabled={saving} onClick={() => {
+        clearError(); setSelected(null); setShowForm(true);
+      }}>Nuevo producto</button>
+      <ErrorPanel error={mutationError} />
+      {showForm && (
+        <fieldset disabled={saving} className="product-form-container">
+          <ProductForm key={selected?.id ?? "nuevo"}
+            productoEditar={selected} onGuardarProducto={handleSave}
+            onCancelar={closeForm} categories={categories} />
+        </fieldset>
+      )}
+      {saving && <p role="status">Guardando cambios...</p>}
+      <GetAllProducts products={products} disabled={saving}
+        onEditarProducto={(product) => {
+          clearError(); setSelected(product); setShowForm(true);
+        }} onEliminarProducto={handleRemove} />
+    </section>
   );
 }

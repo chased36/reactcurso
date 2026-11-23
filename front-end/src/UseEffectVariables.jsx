@@ -1,19 +1,36 @@
 import { useEffect, useState } from "react";
 
-export function UseEffectVariables(){
-    const [busqueda, setBusqueda] = useState('')
+export function UseEffectVariables() {
 
-    useEffect(()=>{
-        if(busqueda.trim() == "") return;
+  //Estado para almacenar el término de búsqueda
+  const [busqueda, setBusqueda] = useState("");
 
-        console.log("Buscando Api de productos que coincidan con la busqueda")
+  //Se ejecuta cuando cambia la variable busqueda
+  useEffect(() => {
 
+    //Evitar búsquedas vacías
+    if (busqueda.trim() === "") {
+      return;
+    }
 
-    }, [busqueda])
+    console.log(
+      `Buscando en la API productos que coincidan con: ${busqueda}`
+    );
 
-    return (
-        <div>
-            <input type="text" placeholder="escriba su termino de busqueda" value = {busqueda} onInput={(evt)=> setBusqueda(evt.target.value)}/>
-        </div>
-    )
+  }, [busqueda]);
+
+  return (
+    <div>
+      <h2>useEffect con variables</h2>
+
+      <input
+        type="text"
+        placeholder="Ej. Mouse, Teclado, Monitor"
+        value={busqueda}
+        onChange={(event) => setBusqueda(event.target.value)}
+      />
+
+      <p>Término de búsqueda: {busqueda}</p>
+    </div>
+  );
 }

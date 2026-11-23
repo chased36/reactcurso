@@ -1,94 +1,49 @@
 import { useState } from "react";
 import { ProductItem } from "./ProductItem";
+import { SearchBox } from "./SearchBox";
 
-export function GetAllProducts({ products, onEdit, onRemove }) {
-const [isAsending, setIsAsending] = useState({ order: true, key: "" });
-
-  const sortedProducts = products.sort((a, b) => {
-    return setPredicatedSort(
-      a[isAsending.key],
-      b[isAsending.key],
-      isAsending.order,
-    );
+export function GetAllProducts({ products, onEditarProducto, onEliminarProducto, disabled = false }) {
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState({ key: "nombre", order: "asc" });
+  const columns = [["nombre", "Nombre"], ["precio", "Precio"], ["stock", "Stock"], ["categoria", "Categoría"]];
+  const filtered = products.filter((product) => product.nombre.toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es")));
+  const sorted = [...filtered].sort((a, b) => {
+    const left = a[sort.key];
+    const right = b[sort.key];
+    const result = typeof left === "number" && typeof right === "number"
+      ? left - right : String(left ?? "").localeCompare(String(right ?? ""), "es", { numeric: true, sensitivity: "base" });
+    return sort.order === "asc" ? result : -result;
   });
 
-  function setPredicatedSort(a, b, order) {
-    switch (typeof a) {
-      case "number":
-        // order - default asc
-        if (order) {
-          return a - b;
-        } else {
-          return b - a;
-        }
-      case "string":
-        if (order) {
-          return a.localeCompare(b);
-        } else {
-          return b.localeCompare(a);
-        }
-      case "boolean":
-        //to-do will implement it
-        return;
-    }
+  function handleSort(key) {
+    setSort((current) => ({ key, order: current.key === key && current.order === "asc" ? "desc" : "asc" }));
   }
-  // {products} --- props
+
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "nombre" })
-              }
-            >
-              Nombre
-            </th>
-            <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "precio" })
-              }
-            >
-              Precio
-            </th>
-            <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "stock" })
-              }
-            >
-              Stock
-            </th>
-            <th
-              onClick={(evt) =>
-                setIsAsending({ order: !isAsending, key: "categoria" })
-              }
-            >
-              Categoria
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedProducts.length > 0 ? (
-            sortedProducts.map((producto) => (
-              <ProductItem
-                key={producto.id}
-                id={producto.id}
-                producto={producto}
-              />
-            ))
-          ) : (
-            <tr>
-              <th>No se encontraron productos</th>
-            </tr>
-          )}
-        </tbody>
-        {products.map((producto) => (
-          <ProductItem id={producto.id} producto={producto} onEdit={onEdit} onRemove={onRemove}  /> // { id: 323123 , producto:{ name:"dasdas"}}
-        ))}
-        
-      </table>             
+      <SearchBox value={search} onInputChange={setSearch} />
+      <div className="table-scroll">
+        <table>
+          <thead><tr>
+            {onEditarProducto && <th scope="col">Editar</th>}
+            {onEliminarProducto && <th scope="col">Eliminar</th>}
+            <th scope="col">#</th>
+            {columns.map(([key, label]) => (
+              <th key={key} scope="col" aria-sort={sort.key === key ? (sort.order === "asc" ? "ascending" : "descending") : "none"}>
+                <button type="button" onClick={() => handleSort(key)}>
+                  {label} {sort.key === key ? (sort.order === "asc" ? "▲" : "▼") : ""}
+                </button>
+              </th>
+            ))}
+          </tr></thead>
+          <tbody>
+            {sorted.length ? sorted.map((product, index) => (
+              <ProductItem key={product.id} producto={product} index={index + 1}
+                onEditarProducto={onEditarProducto} onEliminarProducto={onEliminarProducto} disabled={disabled} />
+            )) : <tr><td colSpan={5 + Number(Boolean(onEditarProducto)) + Number(Boolean(onEliminarProducto))}>No se encontraron productos</td></tr>}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

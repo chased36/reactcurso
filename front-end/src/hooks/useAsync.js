@@ -20,16 +20,17 @@ export function useAsync(asyncFn, deps = []) {
 
     try {
       const data = await asyncFn(controller.signal);
-      if (abortRef.current === controller) {
+      if (!controller.signal.aborted && abortRef.current === controller) {
         setState({ data, loading: false, error: null });
       }
     } catch (err) {
       if (err.name === "AbortError") return; // cancelada a propósito
-      if (abortRef.current === controller) {
+      if (!controller.signal.aborted && abortRef.current === controller) {
         setState({ data: null, loading: false, error: err });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Este hook recibe las dependencias explícitas de cada consumidor.
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
   }, deps);
 
   useEffect(() => {
@@ -37,5 +38,12 @@ export function useAsync(asyncFn, deps = []) {
     return () => abortRef.current?.abort();
   }, [run]);
 
-  return { ...state, recargar: run };
+  const setData = useCallback((updater) => {
+    setState((current) => ({
+      ...current,
+      data: typeof updater === "function" ? updater(current.data) : updater,
+    }));
+  }, []);
+
+  return { ...state, recargar: run, setData };
 }
