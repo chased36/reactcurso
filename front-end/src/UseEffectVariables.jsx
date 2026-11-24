@@ -21,6 +21,7 @@ export function UseEffectVariables() {
   return (
     <div>
       <input
+        id="termBusqueda"
         type="text"
         placeholder="Escriba su término de búsqueda"
         value={busqueda}

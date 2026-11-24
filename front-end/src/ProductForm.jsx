@@ -89,6 +89,7 @@ export function ProductForm({ productAEditar, onSave, onCancel }) {
               <label>ID del producto</label>
 
               <input
+                id="id"
                 type="text"
                 name="id"
                 placeholder="Identificador de producto"

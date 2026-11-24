@@ -90,15 +90,12 @@ export function MiniCatalogoGEslava() {
     return (
         <div>
 
-            <h2>Mini-Catálogo de Productos</h2>
-
-            <hr />
-
             {/* FILTROS */}
 
             <h3>Buscar y filtrar productos</h3>
 
             <input
+                id="Nombuscado"
                 type="text"
                 placeholder="Buscar por nombre..."
                 value={busqueda}
@@ -107,9 +104,10 @@ export function MiniCatalogoGEslava() {
 
             <br /><br />
 
-            <label>Categoría: </label>
+            <label htmlFor="selectCatego">Categoría: </label>
 
             <select
+                id="selectCatego"
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
             >
@@ -124,9 +122,10 @@ export function MiniCatalogoGEslava() {
 
             <br /><br />
 
-            <label>Disponibilidad: </label>
+            <label htmlFor="selectDisponi">Disponibilidad: </label>
 
             <select
+                id="selectDisponi"
                 value={disponibilidad}
                 onChange={(e) => setDisponibilidad(e.target.value)}
             >
@@ -139,7 +138,7 @@ export function MiniCatalogoGEslava() {
                 Productos encontrados: {productosFiltrados.length}
             </p>
 
-            <hr />
+         
 
             {/* BOTÓN PARA DAR DE ALTA */}
 
@@ -159,6 +158,7 @@ export function MiniCatalogoGEslava() {
                     <h3>Alta de producto</h3>
 
                     <input
+                        id="alta"
                         type="text"
                         name="nombre"
                         placeholder="Nombre del producto"
@@ -170,6 +170,7 @@ export function MiniCatalogoGEslava() {
                     <br /><br />
 
                     <input
+                        id="precio"
                         type="number"
                         name="precio"
                         placeholder="Precio"
@@ -183,6 +184,7 @@ export function MiniCatalogoGEslava() {
                     <br /><br />
 
                     <input
+                        id="stock"
                         type="number"
                         name="stock"
                         placeholder="Existencias"
@@ -196,6 +198,7 @@ export function MiniCatalogoGEslava() {
                     <br /><br />
 
                     <input
+                        id="catego"
                         type="text"
                         name="categoria"
                         placeholder="Categoría"
@@ -213,7 +216,7 @@ export function MiniCatalogoGEslava() {
                 </form>
             )}
 
-            <hr />
+           
 
             {/* LISTA DE PRODUCTOS */}
 
@@ -229,6 +232,7 @@ export function MiniCatalogoGEslava() {
 
                     <thead>
                         <tr>
+                            <th>Identificador</th>
                             <th>Producto</th>
                             <th>Categoría</th>
                             <th>Precio</th>
@@ -242,6 +246,7 @@ export function MiniCatalogoGEslava() {
                         {productosFiltrados.map(producto => (
 
                             <tr key={producto.id}>
+                                 <td>{producto.id}</td>
 
                                 <td>{producto.nombre}</td>
 

@@ -160,6 +160,9 @@
     height: 48px;
   }
 }
+.texto {
+  text-align: left;
+}
 
 .ticks {
   position: relative;

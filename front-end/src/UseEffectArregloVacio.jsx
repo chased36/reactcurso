@@ -10,8 +10,8 @@ export function UseEffectArregloVacio() {
 
     setTimeout(() => {
       setUsers([
-        { id: 1, nombre: "Prueba UseEffectAregloVacío" },
-        { id: 2, nombre: "Georgina Eslava García" }
+        { id: 1, nombre: "Prueba UseEffectArregloVacío" },
+        { id: 2, nombre: "El Chris" }
       ]);
     }, 1000);
   }, []);

@@ -243,94 +243,95 @@ export function DummyJson() {
 
         <div>
             {/*////////// CREATE ////////////////*/}
-            <br></br>
-            <article className="glass-card">
-                <h3>Crear una nuevo producto</h3>
 
-                <form onSubmit={(e) => handleSubmit(e, "insertar")}>
+            <section className="dashboard-grid">
+                <article className="glass-card search-card">
+                    <h3>Crear una nuevo producto</h3>
 
-                    <div>
-                        <label htmlfor="name">Producto:</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            placeholder="Nombre del producto"
-                            required
-                        />
-                    </div>
+                    <form onSubmit={(e) => handleSubmit(e, "insertar")}>
 
-                    <div>
-                        <label>Categoría:</label>
-                        <textarea
-                            type="text"
-                            name="category"
-                            value={formData.category}
-                            onChange={handleChange}
-                            placeholder="Escribe la categoría"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Precio:</label>
-                        <textarea
-                            name="price"
-                            value={formData.price}
-                            onChange={handleChange}
-                            placeholder="Escribe el precio"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Stock:</label>
-                        <textarea
-                            name="stock"
-                            value={formData.stock}
-                            onChange={handleChange}
-                            placeholder="Escribe el stock"
-                            required
-                        />
-                    </div>
+                        <div>
+                            <label htmlfor="name">Producto:</label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                placeholder="Nombre del producto"
+                                required
+                            />
+                        </div>
 
-                    <button
-                        type="submit"
-                        disabled={loadingC}
-                    >
-                        {loadingC ? "Enviando..." : "Crear nuevo producto"}
+                        <div>
+                            <label>Categoría:</label>
+                            <textarea
+                                type="text"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                placeholder="Escribe la categoría"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Precio:</label>
+                            <textarea
+                                name="price"
+                                value={formData.price}
+                                onChange={handleChange}
+                                placeholder="Escribe el precio"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Stock:</label>
+                            <textarea
+                                name="stock"
+                                value={formData.stock}
+                                onChange={handleChange}
+                                placeholder="Escribe el stock"
+                                required
+                            />
+                        </div>
 
-                    </button>
+                        <button
+                            type="submit"
+                            disabled={loadingC}
+                        >
+                            {loadingC ? "Enviando..." : "Crear nuevo producto"}
 
-                </form>
-                {resultadoInsertar && (
-                    <div
-                        style={{
-                            border: "1px solid green",
-                            padding: "15px",
-                            marginTop: "15px"
-                        }}
-                    >
-                        <h3 style={{ color: "green" }}>
-                            Producto creado correctamente
-                        </h3>
+                        </button>
 
-                        <p>ID: {resultadoInsertar.id}</p>
-                        <p>Producto: {resultadoInsertar.title}</p>
-                        <p>Categoría: {resultadoInsertar.category}</p>
-                        <p>Precio: {resultadoInsertar.price}</p>
-                        <p>Stock: {resultadoInsertar.stock}</p>
-                    </div>
-                )}
+                    </form>
+                    {resultadoInsertar && (
+                        <div
+                            style={{
+                                border: "1px solid green",
+                                padding: "15px",
+                                marginTop: "15px"
+                            }}
+                        >
+                            <h3 style={{ color: "green" }}>
+                                Producto creado correctamente
+                            </h3>
 
-                {errorC && (
-                    <p style={{ color: "red" }}>{errorC}</p>
-                )}
+                            <p>ID: {resultadoInsertar.id}</p>
+                            <p>Producto: {resultadoInsertar.title}</p>
+                            <p>Categoría: {resultadoInsertar.category}</p>
+                            <p>Precio: {resultadoInsertar.price}</p>
+                            <p>Stock: {resultadoInsertar.stock}</p>
+                        </div>
+                    )}
 
-            </article>
+                    {errorC && (
+                        <p style={{ color: "red" }}>{errorC}</p>
+                    )}
 
-            <div>
-                <br></br>
-                <article className="glass-card">
+                </article>
+
+
+
+                <article className="glass-card search-card">
                     <h2> Eliminar producto  </h2>
 
                     <form onSubmit={(e) => handleSubmit(e, "eliminar")}>
@@ -370,108 +371,107 @@ export function DummyJson() {
                 </article>
                 {/* ACTUALIZAR PRODUCTO */}
 
-                <div>
-                    <br></br>
-                    <article className="glass-card">
-                        <h2>Actualizar producto</h2>
 
-                        <label>ID del producto:</label>
-                        <input
-                            type="number"
-                            min="1"
-                            value={idActualizar}
-                            onChange={(e) => {
-                                setIdActualizar(e.target.value);
-                                setProductoCargado(false);
-                                setResultado(null);
-                                setOperacionRealizada("");
-                                setError("");
-                            }}
-                            placeholder="Escribe el ID"
-                        />
+                <article className="glass-card search-card">
+                    <h2>Actualizar producto</h2>
 
-                        <button
-                            type="button"
-                            onClick={buscarProducto}
-                            disabled={loadingC}
-                        >
-                            Buscar producto
-                        </button>
+                    <label>ID del producto:</label>
+                    <input
+                        type="number"
+                        min="1"
+                        value={idActualizar}
+                        onChange={(e) => {
+                            setIdActualizar(e.target.value);
+                            setProductoCargado(false);
+                            setResultado(null);
+                            setOperacionRealizada("");
+                            setError("");
+                        }}
+                        placeholder="Escribe el ID"
+                    />
 
-                        {productoCargado && (
+                    <button
+                        type="button"
+                        onClick={buscarProducto}
+                        disabled={loadingC}
+                    >
+                        Buscar producto
+                    </button>
+
+                    {productoCargado && (
 
 
-                            <form onSubmit={(e) => handleSubmit(e, "actualizar")}>
+                        <form onSubmit={(e) => handleSubmit(e, "actualizar")}>
 
-                                <h3>Modificar datos</h3>
-                                <div>
-                                    <label>Producto:</label>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label>Categoría:</label>
-                                    <input
-                                        type="text"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label>Precio:</label>
-                                    <input
-                                        type="number"
-                                        name="price"
-                                        value={formData.price}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label>Stock:</label>
-                                    <input
-                                        type="number"
-                                        name="stock"
-                                        value={formData.stock}
-                                        onChange={handleChange}
-                                        min="0"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <button type="submit" disabled={loadingC}>
-                                        Guardar cambios
-                                    </button>
-                                </div>
-
-                            </form>
-                        )}
-                        {resultadoActualizar && (
-                            <div style={{
-                                border: "1px solid blue",
-                                padding: "15px",
-                                marginTop: "15px"
-                            }}>
-                                <h3 style={{ color: "blue" }}>
-                                    Producto actualizado correctamente
-                                </h3>
-
-                                <p>ID: {resultadoActualizar.id}</p>
-                                <p>Producto: {resultadoActualizar.title}</p>
-                                <p>Categoría: {resultadoActualizar.category}</p>
-                                <p>Precio: {resultadoActualizar.price}</p>
-                                <p>Stock: {resultadoActualizar.stock}</p>
+                            <h3>Modificar datos</h3>
+                            <div>
+                                <label>Producto:</label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
-                        )}
-                    </article>
-                </div>
+                            <div>
+                                <label>Categoría:</label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Precio:</label>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={formData.price}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Stock:</label>
+                                <input
+                                    type="number"
+                                    name="stock"
+                                    value={formData.stock}
+                                    onChange={handleChange}
+                                    min="0"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <button type="submit" disabled={loadingC}>
+                                    Guardar cambios
+                                </button>
+                            </div>
+
+                        </form>
+                    )}
+                    {resultadoActualizar && (
+                        <div style={{
+                            border: "1px solid blue",
+                            padding: "15px",
+                            marginTop: "15px"
+                        }}>
+                            <h3 style={{ color: "blue" }}>
+                                Producto actualizado correctamente
+                            </h3>
+
+                            <p>ID: {resultadoActualizar.id}</p>
+                            <p>Producto: {resultadoActualizar.title}</p>
+                            <p>Categoría: {resultadoActualizar.category}</p>
+                            <p>Precio: {resultadoActualizar.price}</p>
+                            <p>Stock: {resultadoActualizar.stock}</p>
+                        </div>
+                    )}
+                </article>
+
 
 
                 {error && (
@@ -480,78 +480,76 @@ export function DummyJson() {
                     </p>
 
                 )}
-            </div>
-            <br></br>
-            <article className="glass-card">
-                <h2>Productos de DummyJSON</h2>
-                {/* Buscador */}
-                <input
-                    type="text"
-                    placeholder="Buscar producto..."
-                    value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
-                />
-                <p>
-                    Productos encontrados:
-                    {productosFiltrados.length}
-                </p>
-                {/*Muestra resultados filtrados*/}
-                {
-                    productosFiltrados.length === 0 ? (
-                        <p>No se encontraron productos
-                            que coincidan con el filtro.
-                        </p>
-                    ) :
-                        (
-                            <div>
-                                <h2>Lista de productos filtrados</h2>
 
 
-                                <div
-                                    style={{
-                                        height: "400px",
-                                        overflowY: "auto",
-                                        border: "1px solid #ccc"
-                                    }}
-                                >
+                <article className="glass-card search-card">
+                    <h2>Productos de DummyJSON</h2>
+                    {/* Buscador */}
+                    <input
+                        type="text"
+                        placeholder="Buscar producto..."
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                    <p>
+                        Productos encontrados:
+                        {productosFiltrados.length}
+                    </p>
+                    {/*Muestra resultados filtrados*/}
+                    {
+                        productosFiltrados.length === 0 ? (
+                            <p>No se encontraron productos
+                                que coincidan con el filtro.
+                            </p>
+                        ) :
+                            (
+                                <div>
+                                    <h2>Lista de productos filtrados</h2>
+                                    <div
+                                        style={{
+                                            height: "400px",
+                                            overflowY: "auto",
+                                            border: "1px solid #ccc"
+                                        }}
+                                    >
+                                        <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse" }}>
 
-                                    <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse" }}>
-
-                                        <thead>
-                                            <tr>
-                                                <th style={estiloCabecera}>Imagen</th>
-                                                <th style={estiloCabecera}>Producto</th>
-                                                <th style={estiloCabecera}>Categoría</th>
-                                                <th style={estiloCabecera}>Precio</th>
-                                                <th style={estiloCabecera}>Stock</th>
-                                                <th style={estiloCabecera}>Estado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {productosFiltrados.map((producto) => (
-                                                <tr key={producto.id}>
-                                                    <td>
-                                                        <img
-                                                            src={producto.thumbnail}
-                                                            alt={producto.title}
-                                                            width="80"
-                                                        />
-                                                    </td>
-                                                    <td>{producto.title}</td>
-                                                    <td>{producto.category}</td>
-                                                    <td>${producto.price.toFixed(2)}</td>
-                                                    <td>{producto.stock}</td>
-                                                    <td>{producto.stock > 0 ? "Disponible" : "No disponible"}</td>
+                                            <thead>
+                                                <tr>
+                                                    <th style={estiloCabecera}>Imagen</th>
+                                                    <th style={estiloCabecera}>Producto</th>
+                                                    <th style={estiloCabecera}>Categoría</th>
+                                                    <th style={estiloCabecera}>Precio</th>
+                                                    <th style={estiloCabecera}>Stock</th>
+                                                    <th style={estiloCabecera}>Estado</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                {productosFiltrados.map((producto) => (
+                                                    <tr key={producto.id}>
+                                                        <td>
+                                                            <img
+                                                                src={producto.thumbnail}
+                                                                alt={producto.title}
+                                                                width="80"
+                                                            />
+                                                        </td>
+                                                        <td>{producto.title}</td>
+                                                        <td>{producto.category}</td>
+                                                        <td>${producto.price.toFixed(2)}</td>
+                                                        <td>{producto.stock}</td>
+                                                        <td>{producto.stock > 0 ? "Disponible" : "No disponible"}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
-                        )
-                }
-            </article>
+                            )
+                    }
+                </article>
+            </section>
         </div >
     );
 }

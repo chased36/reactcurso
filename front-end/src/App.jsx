@@ -70,18 +70,14 @@ function HomePage() {
           <Calculadora />
         </article>
 
-        <article className="examplesUseEffect">
-          <h4>Ejemplos de useEffect y ciclo de vida</h4>
-          <UseEffectSinArreglo />
-          <UseEffectArregloVacio />
-          <UseEffectVariables />
-          <UseEffectCleanup />
+        <article className="glass-card">
+          <h2>Otra versión de Calculadora</h2>
+          <CalculadoraGEslava />
         </article>
 
         <article className="glass-card counter-card">
           <h2>Contador</h2>
           <strong className="counter-value">{count}</strong>
-
           <div className="counter-actions">
             <button type="button" onClick={() => setCount(v => v + 1)}>
               +
@@ -97,30 +93,42 @@ function HomePage() {
 
         <article className="glass-card">
           <h2>Saludo</h2>
+          <label htmlFor="saludo">Nombre: </label>
           <input
+            id="saludo"
             value={saludo}
             onChange={e => setSaludo(e.target.value)}
           />
-          <h4>{saludo}</h4>
+          <h4>¡Hola {saludo}!</h4>
         </article>
 
-      </section>
-      <section>
-        <h2>Búsqueda y productos</h2>
-        <ProductList products={allProducts} />
-        <GetAllProducts products={allProducts} />
-      </section>
+        <article className="glass-card search-card">
+          <h2>Búsqueda de productos</h2>
+          <ProductList products={allProducts} />
+        </article>
 
-      <section>
-        <h2>Catálogo CRUD</h2>
-        <Catalogo products={allProducts} />
-      </section>
+        <article className="glass-card search-card">
+          <h3>Lista con opción a ordenar por atributo</h3>
+          <h4>Dar clic en atributo deseado</h4>
+          <GetAllProducts products={allProducts} />
+        </article>
 
-      <section>
-        <h2>Mis proyectos</h2>
-        <MiniCatalogoGEslava />
-        <CalculadoraGEslava />
-        <FormularioGEslava />
+        <article className="glass-card search-card">
+          <h2>Catálogo  </h2>
+          <h3>Incluye: CRUD (Create, Read, Update y Delete) y ordena por atributo </h3>
+          <Catalogo products={allProducts} />
+        </article>
+
+        <article className="glass-card search-card">
+          <h2>Minicatálogo</h2>
+          <MiniCatalogoGEslava /> 
+        </article>
+
+        <article className="glass-card search-card">
+          <h2>Otra sugerencia de catalogo</h2>
+          <FormularioGEslava />
+        </article>
+
       </section>
 
       <section id="next-steps">
@@ -204,6 +212,7 @@ function AppShell() {
           <span className="menu-label">Explorar</span>
           <Link to="/">Inicio</Link>
           <Link to="/catalogo">Catálogo</Link>
+          <Link to="/UseEffect">UseEffect-Varios</Link>
           <Link to="/placeholderdetalle/1">Detalle PlaceHolder</Link>
           <Link to="/placeholderCRUD">PlaceHolder CRUD</Link>
           <Link to="/dummyJsonCRUD">DummyJson CRUD</Link>
@@ -241,7 +250,14 @@ function AppShell() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/UseEffect"
+            element={
+              <ProtectedRoute>
+                <UseEffectPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/placeholderdetalle/:id"
             element={
@@ -279,47 +295,84 @@ function AppShell() {
 }
 export function PlaceHolderPage() {
   return (
-    <section>
+    <section className="dashboard-grid" >
       <h2>CRUD con PlaceHolder</h2>
 
-      <article className="glass-card">
+      <article className="glass-card search-card">
         <h3>get</h3>
         <PlaceHolder />
       </article>
-      <br></br>
 
-      <article className="glass-card">
+      <article className="glass-card search-card">
         <h3>list</h3>
         <PlaceHolderList />
       </article>
-      <br></br>
 
-      <article className="glass-card">
+      <article className="glass-card search-card">
         <h3>create</h3>
         <PlaceHolderCreate />
       </article>
-      <br></br>
 
       <article className="glass-card">
         <h3>update</h3>
         <PlaceHolderUpdate />
       </article>
-      <br></br>
 
       <article className="glass-card">
         <h3>delete</h3>
         <PlaceHolderDelete />
       </article>
-      <br></br>
 
-      <article className="glass-card">
+      <article className="glass-card search-card">
         <h3>filter</h3>
         <PlaceHolderFilter />
+      </article>
+    </section>
+  );
+}
+
+export function UseEffectPage() {
+  return (
+    <section className="dashboard-grid">
+      <h2>Ejemplos con UseEffect y ciclo de vida</h2>
+
+      <p className="texto">
+        useEffect es un Hook de React que permite ejecutar código secundario (efectos) después de que un componente se renderiza. Se suele usar para:
+     
+
+      <ul className="texto">
+        <li>Llamar APIs y obtener datos.</li>
+        <li>Escuchar eventos (resize, scroll, etc.).</li>
+        <li> Modificar el título de la página.</li>
+        <li> Crear y limpiar temporizadores (setInterval, setTimeout).</li>
+        <li>Sincronizar el componente con recursos externos.</li>
+      </ul>
+       </p>
+
+      <article className="glass-card">
+        <h3>UseEffect - sin Arreglo</h3>
+        <UseEffectSinArreglo />
+      </article>
+
+      <article className="glass-card">
+        <h3>UseEffect - Arreglo Vacío</h3>
+        <UseEffectArregloVacio />
+      </article>
+
+      <article className="glass-card">
+        <h3>UseEffect - Variables</h3>
+        <UseEffectVariables />
+      </article>
+
+      <article className="glass-card">
+        <h3>UseEffect - Cleanup</h3>
+        <UseEffectCleanup />
       </article>
       <br></br>
     </section>
   );
 }
+
 export function DummyJsonPage() {
   return (
     <section>

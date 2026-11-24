@@ -6,18 +6,18 @@ export function Catalogo({ products }) {
 
     const [productos, setProductos] = useState([]);
     const [isLoading, setLoading] = useState(true);
-   
-     //Controlar si el formulario esta siendo abierto o si se esta edi>
+
+    //Controlar si el formulario esta siendo abierto o si se esta edi>
     const [showForm, setShowForm] = useState(false);
     const [productSeleccionado, setProductSeleccionado] = useState(null);
-    
+
     useEffect(() => {
-         /*
-        La función setTimeout() programa la ejecución de una función >
-        tras un cierto retraso. El primer argumento es la función que>
-        El segundo argumento es el retraso, expresado en milisegundos>
-        equivale a 1000 milisegundos.
-        */
+        /*
+       La función setTimeout() programa la ejecución de una función >
+       tras un cierto retraso. El primer argumento es la función que>
+       El segundo argumento es el retraso, expresado en milisegundos>
+       equivale a 1000 milisegundos.
+       */
         const timer = setTimeout(() => {
             setProductos(products);
             setLoading(false);
@@ -26,7 +26,7 @@ export function Catalogo({ products }) {
         return () => clearTimeout(timer);
     }, [products]);
 
-     //*******crud: create, read, update, delete ****************** */
+    //*******crud: create, read, update, delete ****************** */
     const handlerSaveProduct = (nuevoOActualizado) => {
         if (productSeleccionado) {
             // Update: reemplazar el producto seleccionado con el id
@@ -84,7 +84,7 @@ export function Catalogo({ products }) {
         setProductSeleccionado(null);
         setShowForm(true);
     };
-    
+
     //******************************************
 
     if (isLoading) {
@@ -93,8 +93,6 @@ export function Catalogo({ products }) {
 
     return (
         <div>
-
-            <h2>Catálogo de productos</h2>
             {isLoading ? (
                 <h4>Está cargando....</h4>
             ) : (
@@ -113,17 +111,17 @@ export function Catalogo({ products }) {
                             Agregar producto
                         </button>
                     </div>
-                     {showForm && (
-                <ProductForm
-                    productAEditar={productSeleccionado}
-                    onSave={handlerSaveProduct}
-                    onCancel={() => {
-                        setShowForm(false)
-                        setProductSeleccionado(null)
+                    {showForm && (
+                        <ProductForm
+                            productAEditar={productSeleccionado}
+                            onSave={handlerSaveProduct}
+                            onCancel={() => {
+                                setShowForm(false)
+                                setProductSeleccionado(null)
 
-                    }}
-                />
-            )}
+                            }}
+                        />
+                    )}
                 </>
             )}
 

@@ -49,6 +49,7 @@ export function PlaceHolderFilter() {
     return (
         <div>
             <input
+                id="buscado"
                 type="text"
                 placeholder="Buscar publicaciones"
                 value={filter}

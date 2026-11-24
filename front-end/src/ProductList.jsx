@@ -52,11 +52,7 @@ export function ProductList({ products  = []}) {
 
 
 //Catálogo con edición, eliminación y ordenamiento
-export function GetAllProducts({ 
-  products=[], 
-  onEdit, 
-  onRemove
- })
+export function GetAllProducts({ products=[], onEdit, onRemove })
  {
   const [sort, setSort] = useState({ 
     order: "asc", 
@@ -107,10 +103,13 @@ export function GetAllProducts({
     <div>
       <table border="1">
         <thead>
-          <tr>
-            <th>Editar</th>
-            <th>Eliminar</th>
-            <th>Identificador</th>
+          <tr>      
+            <th
+              onClick={() => handleSort("id")}
+              style={{ cursor: "pointer" }}
+            >
+              Identificador{sortIndicator("id")}
+            </th>
 
             <th
               onClick={() => handleSort("nombre")}

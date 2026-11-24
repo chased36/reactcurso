@@ -31,12 +31,14 @@ export function CalculadoraGEslava() {
     return (
         <div>
             <input
+                id="num1"
                 type="number"
                 value={num1}
                 onChange={(e) => darNum1(e.target.value)}
                 placeholder="Número 1"
             />
             <input
+                id="num2"
                 type="number"
                 value={num2}
                 onChange={(e) => darNum2(e.target.value)}
@@ -44,9 +46,7 @@ export function CalculadoraGEslava() {
             />
             <br></br>
             
-             <button onClick={()=>calcular("+")}>
-                +
-            </button>
+             <button onClick={()=>calcular("+")}> + </button>
             <button onClick={()=>calcular("-")}>
                 -
             </button>

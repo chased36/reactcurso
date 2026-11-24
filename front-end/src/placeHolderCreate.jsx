@@ -69,6 +69,7 @@ export function PlaceHolderCreate() {
                 <div>
                     <label>Usuario:</label>
                     <input
+                        id="usuario"
                         type="number"
                         name="userId"
                         value={formData.userId}
@@ -81,6 +82,7 @@ export function PlaceHolderCreate() {
                 <div>
                     <label>Título:</label>
                     <input
+                        id="titulo"
                         type="text"
                         name="title"
                         value={formData.title}

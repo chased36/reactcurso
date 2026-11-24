@@ -133,10 +133,7 @@ export function FormularioGEslava() {
 
   return (
     <div className="msf-body">
-      <hr />
-      <h3>Mi versión de formulario</h3>
-      <h2>Administración de productos</h2>
-      <hr />
+      
 
       {/* Aqui comienza el formulario */}
 
@@ -146,8 +143,9 @@ export function FormularioGEslava() {
           {editando ? "Modificar producto" : "Registrar producto"}
         </h3>
 
-        <label>Nombre:</label>
+        <label htmlFor="nom">Nombre:</label>
         <input
+          id="nom"
           type="text"
           name="nombre"
           placeholder="Nombre del producto"
@@ -157,8 +155,9 @@ export function FormularioGEslava() {
 
         <br />
 
-        <label>Precio:</label>
+        <label htmlFor="preci">Precio:</label>
         <input
+          id="preci"
           type="number"
           name="precio"
           placeholder="Precio"
@@ -170,8 +169,9 @@ export function FormularioGEslava() {
 
         <br />
 
-        <label>Stock:</label>
+        <label htmlFor="stock">Stock:</label>
         <input
+          id="stock"
           type="number"
           name="stock"
           placeholder="Stock"
@@ -183,16 +183,15 @@ export function FormularioGEslava() {
 
         <br />
 
-        <label>Categoría:</label>
+        <label htmlFor="catego">Categoría:</label>
         <input
+          id="catego"
           type="text"
           name="categoria"
           placeholder="Categoría"
           value={formData.categoria}
           onChange={handleChange}
         />
-
-        <br /><br />
 
         {/* Botones*/}
 
@@ -218,8 +217,6 @@ export function FormularioGEslava() {
 
       </div>
 
-      <hr />
-
       {/* Tabla de productos */}
 
       <h3>Lista de productos</h3>
@@ -228,7 +225,7 @@ export function FormularioGEslava() {
 
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Id</th>
             <th>Nombre</th>
             <th>Precio</th>
             <th>Stock</th>

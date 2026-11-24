@@ -4,6 +4,11 @@ import DeleteButton from "./assets/delete-icon.svg";
 export function ProductItem({ id, producto, onEdit, onRemove }) {
   return (
     <tr id={String(id ?? producto.id)}>
+      <td>{producto.id}</td>
+      <td>{producto.nombre}</td>
+      <td>{producto.precio}</td>
+      <td>{producto.stock}</td>
+      <td>{producto.categoria}</td>
       {onEdit && (
         <td>
           <button
@@ -47,12 +52,6 @@ export function ProductItem({ id, producto, onEdit, onRemove }) {
           </button>
         </td>
       )}
-
-      <td>{producto.id}</td>
-      <td>{producto.nombre}</td>
-      <td>{producto.precio}</td>
-      <td>{producto.stock}</td>
-      <td>{producto.categoria}</td>
     </tr>
   );
 }

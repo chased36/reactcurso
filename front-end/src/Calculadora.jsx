@@ -24,15 +24,19 @@ export function Calculadora(){
 
     return (
         <>
-        <input type="text" onChange={(e)=> setInputA(+e.target.value)}/>
-        <select name="" id="" onClick={(evt)=> setResultado(operationAritmetic(inputA, inputB, evt.target.value))}>
+        <input id="inputA" type="text" onChange={(e)=> setInputA(+e.target.value)}/>
+        <select id="operador" onClick={(evt)=> setResultado(operationAritmetic(inputA, inputB, evt.target.value))}>
             <option value="+">+</option>
             <option value="-">-</option>
             <option value="*">*</option>
             <option value="/">/</option>
         </select>
-        <input type="text" onChange={(e)=> setInputB(+e.target.value)} />
-        <label htmlFor="">{resultado}</label>
+        <input 
+            id="inputB"
+            type="text" 
+            onChange={(e)=> setInputB(+e.target.value)}
+         />
+        <p>{resultado}</p>
         </>
     )
 }
