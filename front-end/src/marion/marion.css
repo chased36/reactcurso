@@ -52,3 +52,82 @@ body {
 .vacio { text-align: center; color: #94a3b8; }
 .detalle img { max-width: 240px; border-radius: 10px; }
 .lista-ejercicios li { margin: 8px 0; }
+/* Ajuste del login para que no tape el navbar de SoundStore */
+.app-marion .auth-lightbox {
+  position: static;
+  inset: auto;
+  min-height: auto;
+  margin: 0;
+  z-index: auto;
+  background: none;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.app-marion .auth-backdrop {
+  display: none;
+}
+/* Colores del login al estilo SoundStore */
+.app-marion .auth-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Letra "R" sin fondo */
+.app-marion .auth-card .auth-brand,
+.app-marion .auth-card .auth-brand span {
+  background: none;
+  background-image: none;
+  box-shadow: none;
+  border: none;
+  color: #f59e0b;
+  font-size: 2rem;
+}
+
+/* "ACCESO PRIVADO" */
+.app-marion .auth-card .eyebrow {
+  color: #f59e0b;
+}
+
+/* Textos */
+.app-marion .auth-card h3,
+.app-marion .auth-card label {
+  color: #f1f5f9;
+}
+
+.app-marion .auth-card .auth-header p,
+.app-marion .auth-card .auth-footnote {
+  color: #94a3b8;
+}
+
+/* Cajas de texto */
+.app-marion .auth-card .field-group input {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #f1f5f9;
+}
+
+.app-marion .auth-card .field-group input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+/* Botón */
+.app-marion .auth-card .login-button {
+  background: #f59e0b;
+  background-image: none;
+  color: #0f172a;
+  box-shadow: none;
+}
+
+.app-marion .auth-card .login-button:hover {
+  background: #fbbf24;
+}
+
+/* Mensaje de error */
+.app-marion .auth-card .form-error {
+  color: #f87171;
+}

@@ -9,6 +9,8 @@ import { DetalleProducto } from "./pages/DetalleProducto";
 import { CatalogoApi } from "./pages/CatalogoApi";
 import { DetalleApi } from "./pages/DetalleApi";
 import { NotFound } from "./pages/NotFound";
+import { ProtectedRoute } from "../protectedRoute";
+import { LoginForm } from "../loginForm";
 
 export function AppMarion() {
   const [productos, setProductos] = useState([...allProducts]);
@@ -26,13 +28,28 @@ export function AppMarion() {
         <Navbar />
         <main>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalogo" element={<Catalogo productos={productos} onAgregar={agregarProducto} />} />
-            <Route path="/catalogo/:id" element={<DetalleProducto productos={productos} />} />
-            <Route path="/api" element={<CatalogoApi />} />
-            <Route path="/api/:id" element={<DetalleApi />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/catalogo" element={<Catalogo productos={productos} onAgregar={agregarProducto} />} />
+  <Route path="/catalogo/:id" element={<DetalleProducto productos={productos} />} />
+  <Route path="/login" element={<LoginForm />} />
+  <Route
+    path="/api"
+    element={
+      <ProtectedRoute>
+        <CatalogoApi />
+      </ProtectedRoute>
+    }
+  />
+  <Route
+    path="/api/:id"
+    element={
+      <ProtectedRoute>
+        <DetalleApi />
+      </ProtectedRoute>
+    }
+  />
+  <Route path="*" element={<NotFound />} />
+</Routes>
         </main>
       </div>
     </BrowserRouter>
