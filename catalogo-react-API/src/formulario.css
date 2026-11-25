@@ -1,0 +1,56 @@
+.formulario-producto {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: left;
+
+  label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-weight: bolder;
+    width: 5rem;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 16rem;
+    margin-left: 2rem;
+    padding: 0.3rem;
+    border: 0.2px solid transparent;
+    border-radius: 10px;
+
+    &:focus {
+      outline: none;
+      border: 0.2px solid #d100ff;
+    }
+  }
+
+  select {
+    padding-left: 0.5rem;
+  }
+}
+
+/* .buscador-catalogo {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .buscador-label {
+    font-weight: bolder;
+  }
+  .buscador-input {
+    width: 16rem;
+    padding: 0.3rem;
+    border: 0.2px solid transparent;
+    border-radius: 10px;
+
+    &:focus {
+      outline: none;
+      border: 0.2px solid #d100ff;
+    }
+  }
+} */

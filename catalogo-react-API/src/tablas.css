@@ -1,0 +1,9 @@
+.contenedor-catalogo {
+  display: flex;
+  justify-content: center;
+  .table-catalogo {
+    border-collapse: separate;
+    /* defect */
+    border-spacing: 3rem 0.5rem;
+  }
+}

@@ -1,7 +1,7 @@
-export function Home() {
-  return (
-    <>
-      <h2>Home</h2>
-    </>
-  );
+export function Home(){
+    return(
+        <>
+            <h4>HOME</h4>
+        </>
+    )
 }

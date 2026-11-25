@@ -1,0 +1,21 @@
+.buscador-catalogo {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .buscador-label {
+    font-weight: bolder;
+  }
+  .buscador-input {
+    width: 16rem;
+    padding: 0.3rem;
+    border: 0.2px solid transparent;
+    border-radius: 10px;
+
+    &:focus {
+      outline: none;
+      border: 0.2px solid #d100ff;
+    }
+  }
+}
