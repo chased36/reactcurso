@@ -1,12 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- * Hook genérico para operaciones asíncronas.
- * Encapsula: loading, error, data, cancelación, reintento.
- *
- * @param {(signal: AbortSignal) => Promise<any>} asyncFn
- * @param {any[]} deps
- */
 export function useAsync(asyncFn, deps = []) {
   const [state, setState] = useState({ data: null, loading: true, error: null });
   const abortRef = useRef(null);
@@ -24,12 +17,11 @@ export function useAsync(asyncFn, deps = []) {
         setState({ data, loading: false, error: null });
       }
     } catch (err) {
-      if (err.name === "AbortError") return; // cancelada a propósito
+      if (err.name === "AbortError") return;
       if (abortRef.current === controller) {
         setState({ data: null, loading: false, error: err });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   useEffect(() => {
