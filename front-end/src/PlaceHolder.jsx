@@ -18,4 +18,8 @@ export function PlaceHolder(){
         <p>{data.title}</p>
         </>
       )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 80e245bb3ee89254b2ac5eb0d49f3a91a3d33d87
