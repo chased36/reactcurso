@@ -1,30 +1,43 @@
-import EditButton from "./assets/edit-note.svg"
-import DeleteButton from "./assets/delete-icon.svg"
-export function ProductItem({ id, producto, onEdit, onRemove }) {
+import { Link } from "react-router-dom";
+
+export function ProductItem({ producto, rutaDetalle, onEdit, onRemove }) {
   return (
-    <>             
-      <tr id={id} >
-        <td><img src={EditButton}  onClick={()=> onEdit(producto)} width={32} height={32} style={{ background: 'white', border: 'none', cursor: 'pointer' }}></img></td>
-        <td>
-          <button
-            type="button"
-            aria-label={`Eliminar ${producto.nombre}`}
-            onClick={() => {
-              if (window.confirm(`¿Está seguro de eliminar "${producto.nombre}"?`)) {
-                onRemove(id);
-              }
-            }}
-            style={{ background: "white", border: "none", cursor: "pointer", padding: 0 }}
-          >
-            <img src={DeleteButton} width={32} height={32} alt="" />
-          </button>
+    <tr>
+      <td>{producto.id}</td>
+      <td>
+        <Link to={`${rutaDetalle}/${producto.id}`}>{producto.nombre}</Link>
+      </td>
+      <td>${Number(producto.precio).toLocaleString("es-MX")}</td>
+      <td>{producto.stock}</td>
+      <td>
+        <span className="tutoria-badge">{producto.categoria}</span>
+      </td>
+      {(onEdit || onRemove) && (
+        <td className="tutoria-actions-cell">
+          {onEdit && (
+            <button
+              type="button"
+              className="btn-edit-outline"
+              onClick={() => onEdit(producto)}
+            >
+              Editar
+            </button>
+          )}
+          {onRemove && (
+            <button
+              type="button"
+              className="btn-danger-outline"
+              onClick={() => {
+                if (window.confirm(`¿Eliminar "${producto.nombre}"?`)) {
+                  onRemove(producto.id);
+                }
+              }}
+            >
+              Eliminar
+            </button>
+          )}
         </td>
-        {/* <button onClick={()=> onCallbackClick(true)} class="mag-btn mag-btn-sky">Actualizar Producto</button> */}
-        <td>{producto.nombre}</td>
-        <td>{producto.precio}</td>
-        <td>{producto.stock}</td>
-        <td>{producto.categoria}</td>
-      </tr>
-    </>
+      )}
+    </tr>
   );
 }
