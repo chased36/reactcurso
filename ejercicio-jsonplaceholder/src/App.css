@@ -1,0 +1,221 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: #14151a;
+  color: #f1f3f5;
+  line-height: 1.5;
+}
+
+.app-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.app-header {
+  text-align: center;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.app-contador {
+  margin: 0;
+  color: #adb5bd;
+}
+
+/* Mensajes de estado y error */
+.mensaje-estado,
+.mensaje-error,
+.estado-carga {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.mensaje-estado {
+  background-color: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #86efac;
+}
+
+.mensaje-error {
+  background-color: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fca5a5;
+}
+
+.estado-carga {
+  background-color: #1e2029;
+  border-color: #2e3240;
+  color: #ced4da;
+}
+
+/* Filtros y formulario */
+section[aria-label='Filtros de posts'],
+form {
+  background-color: #1c1e26;
+  border: 1px solid #2e3240;
+  border-radius: 10px;
+  padding: 1.15rem;
+  margin: 0 !important;
+}
+
+form h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+form label,
+section[aria-label='Filtros de posts'] label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: #dee2e6;
+}
+
+input[type='text'],
+input[type='search'],
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #3a3f52;
+  background-color: #14151a;
+  color: #f8f9fa;
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #7c5cff;
+  outline-offset: 1px;
+  border-color: #7c5cff;
+}
+
+/* Lista de posts */
+.lista-posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.lista-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-item {
+  background-color: #1c1e26;
+  border: 1px solid #2c303d;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.post-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.post-id {
+  font-weight: 700;
+  color: #a78bfa;
+  flex-shrink: 0;
+}
+
+.post-titulo {
+  color: #e9ecef;
+}
+
+.post-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+/* Botones */
+button {
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #3f455a;
+  background-color: #252834;
+  color: #f8f9fa;
+  padding: 0.48rem 0.75rem;
+  font: inherit;
+  font-size: 0.88rem;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #323647;
+  border-color: #6c757d;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-detalle {
+  border-color: #3b82f6;
+}
+
+.btn-editar {
+  border-color: #eab308;
+}
+
+.btn-eliminar {
+  border-color: #ef4444;
+}
+
+/* Panel de detalle GET /posts/:id */
+.detalle-post {
+  background-color: #1c1e26;
+  border: 1px solid #4c3bcf;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.detalle-post h2,
+.detalle-post p {
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .post-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
