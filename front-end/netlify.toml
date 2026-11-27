@@ -3,8 +3,10 @@
   command = "pnpm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "24"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  
