@@ -1,33 +1,59 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useAsync(asyncFn, deps = []) {
-  const [state, setState] = useState({ data: null, loading: true, error: null });
-  const abortRef = useRef(null);
+  const depsKey = JSON.stringify(deps);
+  const [reloadTick, setReloadTick] = useState(0);
+  const requestKey = `${depsKey}-${reloadTick}`;
 
-  const run = useCallback(async () => {
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
+  const [state, setState] = useState({
+    key: requestKey,
+    data: null,
+    loading: true,
+    error: null,
+  });
 
-    setState((s) => ({ ...s, loading: true, error: null }));
-
-    try {
-      const data = await asyncFn(controller.signal);
-      if (abortRef.current === controller) {
-        setState({ data, loading: false, error: null });
-      }
-    } catch (err) {
-      if (err.name === "AbortError") return;
-      if (abortRef.current === controller) {
-        setState({ data: null, loading: false, error: err });
-      }
-    }
-  }, deps);
+  const asyncFnRef = useRef(asyncFn);
 
   useEffect(() => {
-    run();
-    return () => abortRef.current?.abort();
-  }, [run]);
+    asyncFnRef.current = asyncFn;
+  });
 
-  return { ...state, recargar: run };
+  useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
+
+    Promise.resolve()
+      .then(() => asyncFnRef.current(controller.signal))
+      .then(
+        (data) => {
+          if (active) {
+            setState({ key: requestKey, data, loading: false, error: null });
+          }
+        },
+        (err) => {
+          if (err?.name === "AbortError") return;
+          if (active) {
+            setState({ key: requestKey, data: null, loading: false, error: err });
+          }
+        }
+      );
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [requestKey]);
+
+  const recargar = useCallback(() => {
+    setReloadTick((t) => t + 1);
+  }, []);
+
+  const isStale = state.key !== requestKey;
+
+  return {
+    data: isStale ? null : state.data,
+    loading: isStale ? true : state.loading,
+    error: isStale ? null : state.error,
+    recargar,
+  };
 }

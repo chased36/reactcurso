@@ -1,72 +1,28 @@
 import { clients } from "./clients";
-import { HttpError } from "../HttpClient";
-import { allProducts } from "../productosMock";
 
-const normalize = (product) => ({
-  id: String(product.id),
-  nombre: product.title,
-  precio: product.price,
-  stock: product.stock,
-  categoria: product.category,
-  descripcion: product.description ?? "",
+const normalize = (p) => ({
+  id: p.id,
+  nombre: p.title ?? "(sin nombre)",
+  precio: p.price ?? 0,
+  stock: p.stock ?? 0,
+  categoria: p.category ?? "sin categoría",
+  descripcion: p.description ?? "",
+  imagen: p.thumbnail ?? null,
 });
 
-const payload = (product) => ({
-  title: product.nombre,
-  price: product.precio,
-  stock: product.stock,
-  category: product.categoria,
-  description: product.descripcion ?? "",
-});
-
-const isSimulated = (id) => String(id).startsWith("nuevo-");
+const unpack = (res) => {
+  if (Array.isArray(res)) return res;
+  return res?.products ?? res?.data ?? [];
+};
 
 export const productService = {
   async getAll(signal) {
-    const result = await clients.products.get("/products?limit=0", { signal });
-    return result.products.map(normalize);
+    const res = await clients.dummy.get("/products?limit=30", { signal });
+    return unpack(res).map(normalize);
   },
-  async getById(id, signal) {
-    return normalize(await clients.products.get(`/products/${encodeURIComponent(id)}`, { signal }));
-  },
-  async create(product) {
-    const result = await clients.products.post("/products/add", payload(product));
-    return { ...normalize(result), id: `nuevo-${crypto.randomUUID()}` };
-  },
-  async update(id, product) {
-    if (isSimulated(id)) return { ...product, id };
-    const result = await clients.products.put(`/products/${encodeURIComponent(id)}`, payload(product));
-    return normalize(result);
-  },
-  async remove(id) {
-    if (!isSimulated(id)) await clients.products.delete(`/products/${encodeURIComponent(id)}`);
-  },
-};
 
-let localProducts = allProducts.map((product) => ({ ...product }));
-
-export const localProductService = {
-  async getAll() {
-    return localProducts.map((product) => ({ ...product }));
-  },
-  async getById(id) {
-    const product = localProducts.find((item) => String(item.id) === String(id));
-    if (!product) throw new HttpError("Producto no encontrado", 404);
-    return { ...product };
-  },
-  async create(product) {
-    const created = { ...product, id: crypto.randomUUID() };
-    localProducts = [...localProducts, created];
-    return created;
-  },
-  async update(id, product) {
-    await this.getById(id);
-    const updated = { ...product, id };
-    localProducts = localProducts.map((item) => item.id === id ? updated : item);
-    return updated;
-  },
-  async remove(id) {
-    await this.getById(id);
-    localProducts = localProducts.filter((item) => item.id !== id);
+  async obtener(id, signal) {
+    const raw = await clients.dummy.get(`/products/${id}`, { signal });
+    return normalize(raw);
   },
 };

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Login({ user, onLogin }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const destino = location.state?.from?.pathname || "/";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -10,9 +13,9 @@ export function Login({ user, onLogin }) {
 
   useEffect(() => {
     if (user) {
-      navigate("/catalogo", { replace: true });
+      navigate(destino, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, destino]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +24,13 @@ export function Login({ user, onLogin }) {
 
     try {
       if (!email.trim() || password.length < 4) {
-        throw new Error("Ingresa un correo válido y una contraseña de al menos 4 caracteres.");
+        throw new Error(
+          "Ingresa un correo válido y una contraseña de al menos 4 caracteres."
+        );
       }
 
       await onLogin({ email: email.trim(), password });
-      navigate("/catalogo", { replace: true });
+      navigate(destino, { replace: true });
     } catch (err) {
       setError(err.message || "Correo o contraseña incorrectos.");
     } finally {
